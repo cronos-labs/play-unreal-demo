@@ -1,0 +1,4 @@
+[submodule "play-unreal-plugin"]
+	path = play-unreal-plugin
+	url = git@github.com:crypto-com/play-unreal-plugin.git
+	branch = main 

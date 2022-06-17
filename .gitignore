@@ -1,0 +1,4 @@
+CronosPlayUnrealDemo/Plugins/*
+play-unreal-plugin/*
+*.log
+*.json
