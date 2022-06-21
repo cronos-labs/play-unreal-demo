@@ -26,3 +26,6 @@ Unreal Engine 4.27 and 5.0 are supported, i.e. one of them should be installed v
 1. cd CronosPlayUnrealDemo
 2. click `CronosPlayUnrealDemo.project`
 3. or run unreal engine 4.27 , and open project `CronosPlayUnrealDemo.uproject`
+
+### More information for Cronos Play
+If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this [Contact Form](https://airtable.com/shrFiQnLrcpeBp2lS) for more information.
