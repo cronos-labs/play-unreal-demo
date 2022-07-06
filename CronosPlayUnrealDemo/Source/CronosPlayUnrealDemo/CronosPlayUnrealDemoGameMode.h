@@ -6,13 +6,9 @@
 #include "CronosPlayUnrealDemoGameMode.generated.h"
 
 UCLASS(minimalapi)
-class ACronosPlayUnrealDemoGameMode : public AGameModeBase
-{
-	GENERATED_BODY()
+class ACronosPlayUnrealDemoGameMode : public AGameModeBase {
+  GENERATED_BODY()
 
 public:
-	ACronosPlayUnrealDemoGameMode();
+  ACronosPlayUnrealDemoGameMode();
 };
-
-
-
