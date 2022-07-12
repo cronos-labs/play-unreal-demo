@@ -1,8 +1,7 @@
-all: download update
+all: fetch download
+
+fetch:
+	git submodule update --init --recursive
 
 download:
-	git submodule update --init --recursive
-update:
-	cp -Rf ./play-unreal-plugin/CronosPlaySdk/Plugins/CronosPlayUnreal ./CronosPlayUnrealDemo/Plugins
-	cd CronosPlayUnrealDemo && ./copydll.sh
-	
+	cd Plugins/play-unreal-plugin && make

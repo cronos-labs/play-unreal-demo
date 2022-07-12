@@ -21,6 +21,12 @@ Unreal Engine 4.27 and 5.0 are supported, i.e. one of them should be installed v
 4. open `CronosPlayUnrealDemo.project`
 5. run
 
+## To use dynamic libraries
+if visual studio is used, add these lines to top of cpp source
+```C++
+#pragma warning(disable : 4583)
+#pragma warning(disable : 4582)
+```
 
 ## How to Run
 1. cd CronosPlayUnrealDemo
