@@ -7,7 +7,10 @@
 		{
 			"Name": "CronosPlayUnrealDemo",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject"
+			]
 		}
-	]
+	]	
 }
