@@ -1,4 +1,5 @@
 [submodule "play-unreal-plugin"]
-	path = play-unreal-plugin
-	url = git@github.com:cronos-labs/play-unreal-plugin.git 
-	branch = main 
+	path = CronosPlayUnrealDemo/Plugins/play-unreal-plugin
+	url =  git@github.com:leejw51crypto/play-unreal-plugin.git 
+	branch = feature/78
+
