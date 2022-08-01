@@ -24,11 +24,12 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Prepare Plugin
+      shell: bash
+      run: cd Plugins/play-unreal-plugin && make
+
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
-
-    - name: Prepare Plugin
-      run: cd Plugins/play-unreal-plugin && make
 
     - name: Set up Python
       uses: actions/setup-python@v3
