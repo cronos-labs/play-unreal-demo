@@ -1,0 +1,42 @@
+name: Windows Build CI
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+    tags:
+      - "v*.*.*"
+  pull_request:
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x86_64
+        toolset: 14.29
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Prepare Plugin
+      run: cd Plugins/play-unreal-plugin && make
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+
+    - name: Install ue4-ci-helpers
+      run: pip install ue4-ci-helpers
+
+    - name: Build demo
+      run: python Scripts/build.py
