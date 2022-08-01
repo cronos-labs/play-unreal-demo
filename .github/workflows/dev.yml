@@ -1,0 +1,52 @@
+name: Unreal Devlopment Build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+    tags:
+      - "v*.*.*"
+  pull_request:
+    paths-ignore:
+      - README.md
+
+jobs:
+  clone:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: ./.github/actions/play-unreal-demo
+        submodules: recursive
+    # we can not share folders directly between jobs
+    # Thats' why we use upload-artifact/download-artifact as a workaround
+    - uses: actions/upload-artifact@v3
+      with:
+        name: play-unreal-demo
+        path: ./.github/actions/play-unreal-demo
+
+  build:
+    needs: clone
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epicgames/unreal-engine:dev-slim-4.27.2
+      credentials:
+        username: gamefimachine
+        password: ${{ secrets.PAT }}
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: play-unreal-demo
+        path: /home/ue4/play-unreal-demo
+
+    - name: Prepare Plugin (Install play-cpp-sdk)
+      working-directory: /home/ue4/play-unreal-demo/Plugins/play-unreal-plugin/
+      run: make
+
+    - name: Build demo
+      working-directory: /home/ue4/play-unreal-demo
+      env:
+        HOME: /home/ue4
+      run: make RunUAT
