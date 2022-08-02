@@ -1,0 +1,42 @@
+name: Unreal Devlopment Build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+    tags:
+      - "v*.*.*"
+  pull_request:
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epicgames/unreal-engine:dev-4.27.2
+      credentials:
+        username: gamefimachine
+        password: ${{ secrets.PAT }}
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Prepare Plugin
+      working-directory: Plugins/play-unreal-plugin
+      run: make
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+
+    - name: Install ue4-ci-helpers
+      run: pip install ue4-ci-helpers
+
+    - name: Build demo
+      run: python Scripts/build.py
