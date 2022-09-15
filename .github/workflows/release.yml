@@ -7,7 +7,7 @@ on:
     paths-ignore:
       - README.md
     tags:
-      - "v*.*.*"  
+      - "v*.*.*"
   pull_request:
     paths-ignore:
       - README.md
@@ -22,20 +22,30 @@ jobs:
           submodules: recursive
 
       - name: Prepare Plugin
-        run: |
-          cd Plugins/play-unreal-plugin && make 
+        working-directory: Plugins/play-unreal-plugin
+        run: make
 
-      - name: Package For Windows,Mac
+      - name: Package
         run: |
           FILENAME="CronosPlayDemo.zip"
           cd ..
           zip -r ${FILENAME} play-unreal-demo -x "play-unreal-demo/.git/*" "play-unreal-demo/.git/*" "play-unreal-demo/Plugins/play-unreal-plugin/.git/*"  "play-unreal-demo/Plugins/play-unreal-plugin/.github/*" "play-unreal-demo/Plugins/play-unreal-plugin/install/*"
           mv ${FILENAME} play-unreal-demo
           cd play-unreal-demo
-          sha256sum ${FILENAME} > "checksums.txt"
-          echo "release_file=${FILENAME}" >> $GITHUB_ENV
-          echo "checksum_file=checksums.txt" >> $GITHUB_ENV
-          
+          sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
+          echo "demo_file=${FILENAME}" >> $GITHUB_ENV
+          echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
+
+      - name: Asset Pack
+        run: |
+          FILENAME="CronosPlayAssetPack.zip"
+          cd Content/CronosPlayUnreal/Blueprint
+          zip -r ${FILENAME} *
+          mv ${FILENAME} ../../..
+          cd ../../..
+          sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
+          echo "asset_pack_file=${FILENAME}" >> $GITHUB_ENV
+          echo "asset_pack_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
 
       - name: Upload binaries and bindings to Release
         uses: softprops/action-gh-release@v1
@@ -43,8 +53,9 @@ jobs:
         with:
           draft: true
           files: |
-            ${{ env.release_file }}
-            ${{ env.checksum_file }}
+            ${{ env.demo_file }}
+            ${{ env.demo_checksum_file }}
+            ${{ env.asset_pack_file }}
+            ${{ env.asset_pack_checksum_file }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}            
-      
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
