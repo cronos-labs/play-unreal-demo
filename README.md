@@ -3,8 +3,9 @@ This repository contains a sample project that uses the Cronos Play Unreal SDK p
 For more information, please see the [Cronos Play Unreal SDK plugin repository](https://github.com/crypto-com/play-unreal-plugin).
 
 ## Pre-requisites
-Visual Studo 2019 or later (2022) or XCODE 13.2.1
-Unreal Engine 4.27 and 5.0 are supported, i.e. one of them should be installed via the Epic Games Launcher.
+Windows: Visual Studo 2019 or later
+Mac: XCODE 13.2.1
+Unreal Engine: 4.27 or 5.x
 
 ## Pre-built Release
 Download the release zip file in [Release](https://github.com/cronos-labs/play-unreal-demo/releases) page.
@@ -13,7 +14,7 @@ Download the release zip file in [Release](https://github.com/cronos-labs/play-u
 - Assets: `./Content/CronosPlayUnreal/Blueprint`
 - `CronosPlayUnreal` Plugin: `./Plugins/play-unreal-plugin`
 
-### `CronosAssetPack.zip`
+### `CronosPlayAssetPack.zip`
 - Assets: Blueprints, widgets etc
 
 ## Setup Manually
