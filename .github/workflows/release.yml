@@ -22,22 +22,22 @@ jobs:
           submodules: recursive
 
       - name: Prepare Plugin
-        run: |
-          cd Plugins/play-unreal-plugin && make
+        working-directory: Plugins/play-unreal-plugin
+        run: make
 
       - name: Package For Windows, Mac
+        working-directory: ..
         run: |
           FILENAME="CronosPlayDemo.zip"
-          cd ..
           zip -r ${FILENAME} play-unreal-demo -x "play-unreal-demo/.git/*" "play-unreal-demo/.git/*" "play-unreal-demo/Plugins/play-unreal-plugin/.git/*"  "play-unreal-demo/Plugins/play-unreal-plugin/.github/*" "play-unreal-demo/Plugins/play-unreal-plugin/install/*"
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
           echo "demo_file=${FILENAME}" >> $GITHUB_ENV
           echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
 
       - name: Asset Pack
+        working-directory: Content/CronosPlayUnreal/Blueprint
         run: |
           FILENAME="CronosPlayAssetPack.zip"
-          cd Content/CronosPlayUnreal/Blueprint
           zip -r ${FILENAME} *
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
           echo "asset_pack_file=${FILENAME}" >> $GITHUB_ENV
