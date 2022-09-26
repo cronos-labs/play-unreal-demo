@@ -1,12 +1,35 @@
 # Cronos Play Unreal SDK Demo
-This repository contains a sample project that uses the Cronos Play Unreal SDK plugin.
+This repository contains sample projects that uses the Cronos Play Unreal SDK plugin.
 For more information, please see the [Cronos Play Unreal SDK plugin repository](https://github.com/crypto-com/play-unreal-plugin).
+
+## basic flow
+- inherit blueprint DefiWalletCoreActor
+- restore wallet with mnemonics
+- transfer amount
+- most of apis are async, receive result with events
+
+## examples
+there are markdown files in each projects for details 
+### simple
+- basic demo 
+- eth address generation with index
+- get balance, transfer etc
+- erc721 fetch, transfer 
+- erc1155 fetch, transfer
+- wallet-connect signing
+- cronoscan, blockscout query
+
+
+### play2earn
+- basic erc721, erc1155 nft game example
+- need to mint tokens beforehand
 
 ## Pre-requisites
 Windows: Visual Studo 2019 or later
 Mac: XCODE 13.2.1
 Android: NDK 21.4.7075529
 Unreal Engine: 4.27 or 5.x
+Plugin: Cronos Play For Unreal Engine in Epic Marketplace
 
 ## Pre-built Release
 Download the release zip file in [Release](https://github.com/cronos-labs/play-unreal-demo/releases) page.
@@ -17,13 +40,6 @@ Download the release zip file in [Release](https://github.com/cronos-labs/play-u
 
 ### `CronosPlayAssetPack.zip`
 - Assets: Blueprints, widgets etc
-
-## Setup Manually
-If you prefer configuring the project manually:
-1. Clone this project
-2. Under the project root and run `make` to setup `CronosPlayUnreal` plugin
-3. open `CronosPlayUnrealDemo.uproject`
-4. For android, you need to setup the key for signing, please check [here](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Mobile/Android/DistributionSigning/).
 
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this [Contact Form](https://airtable.com/shrFiQnLrcpeBp2lS) for more information.
