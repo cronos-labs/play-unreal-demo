@@ -9,7 +9,7 @@ All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md
 
 ## Feature requests and bug reports
 
-Feature requests and bug reports should be posted as [Github issues](issues/new).
+Feature requests and bug reports should be posted as [Github issues](https://github.com/cronos-labs/play-unreal-plugin/issues/new).
 In an issue, please describe what you did, what you expected, and what happened instead.
 
 If you think that you have identified an issue with Cronos Play Unreal SDK that might compromise
@@ -88,4 +88,4 @@ By making a contribution to this project, I certify that:
     personal information I submit with it, including my sign-off) is
     maintained indefinitely and may be redistributed consistent with
     this project or the open source license(s) involved.
-```    
+```

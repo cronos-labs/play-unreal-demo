@@ -43,8 +43,8 @@ Download the release zip file in [Release](https://github.com/cronos-labs/play-u
 
 ### Contribute
 We welcome contributions of any kind!
-- For bugs reports or feature requests, please report to https://github.com/cronos-labs/play-unreal-plugin/issues
-- We love pull requests (see the [CONTRIBUTING](./CONTRIBUTING.md) Guidelines for more details)
+- For bugs reports or feature requests, please post to [Github issues](https://github.com/cronos-labs/play-unreal-plugin/issues/new)
+- We love pull requests (see the [CONTRIBUTING](CONTRIBUTING.md) Guidelines for more details)
 
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this [Contact Form](https://airtable.com/shrFiQnLrcpeBp2lS) for more information.
