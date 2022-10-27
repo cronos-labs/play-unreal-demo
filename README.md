@@ -41,5 +41,10 @@ Download the release zip file in [Release](https://github.com/cronos-labs/play-u
 ### `CronosPlayAssetPack.zip`
 - Assets: Blueprints, widgets etc
 
+### Contribute
+We welcome contributions of any kind!
+- For bugs reports or feature requests, please report to https://github.com/cronos-labs/play-unreal-plugin/issues
+- We love pull requests (see the [CONTRIBUTING](./CONTRIBUTING.md) Guidelines for more details)
+
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this [Contact Form](https://airtable.com/shrFiQnLrcpeBp2lS) for more information.
