@@ -22,16 +22,13 @@ jobs:
           submodules: recursive
 
       - name: Prepare Plugin
-        working-directory: Plugins/play-unreal-plugin
+        working-directory: simple
         run: make
 
       - name: Package
         run: |
           FILENAME="CronosPlayDemo.zip"
-          cd ..
-          zip -r ${FILENAME} play-unreal-demo -x "play-unreal-demo/.git/*" "play-unreal-demo/.git/*" "play-unreal-demo/Plugins/play-unreal-plugin/.git/*"  "play-unreal-demo/Plugins/play-unreal-plugin/.github/*" "play-unreal-demo/Plugins/play-unreal-plugin/install/*"
-          mv ${FILENAME} play-unreal-demo
-          cd play-unreal-demo
+          zip -r ${FILENAME} simple -x "simple/.git/*" "simple/.git/*" "simple/Plugins/play-unreal-plugin/.git/*"  "simple/Plugins/play-unreal-plugin/.github/*" "simple/Plugins/play-unreal-plugin/install/*"
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
           echo "demo_file=${FILENAME}" >> $GITHUB_ENV
           echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
@@ -39,10 +36,10 @@ jobs:
       - name: Asset Pack
         run: |
           FILENAME="CronosPlayAssetPack.zip"
-          cd Content/CronosPlayUnreal/Blueprint
+          cd simple/Content/CronosPlayUnreal/Blueprint
           zip -r ${FILENAME} *
-          mv ${FILENAME} ../../..
-          cd ../../..
+          mv ${FILENAME} ../../../..
+          cd ../../../..
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
           echo "asset_pack_file=${FILENAME}" >> $GITHUB_ENV
           echo "asset_pack_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
