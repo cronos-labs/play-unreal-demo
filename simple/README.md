@@ -3,11 +3,11 @@ This repository contains a sample project that uses the Cronos Play Unreal SDK p
 For more information, please see the [Cronos Play Unreal SDK plugin repository](https://github.com/crypto-com/play-unreal-plugin).
 
 ## Pre-requisites
-Windows: Visual Studo 2019 or later
-Mac: XCODE 13.2.1
-Android: NDK 21.4.7075529
-Unreal Engine: 4.27 
-Plugin: Cronos Play For Unreal Engine
+- Windows: Visual Studo 2019 or later
+- Mac: XCODE 13.2.1
+- Android: NDK 21.4.7075529
+- Unreal Engine: 4.27
+- Plugin: Cronos Play For Unreal Engine
 
 ## Pre-built Release
 Download the release zip file in [Release](https://github.com/cronos-labs/play-unreal-demo/releases) page.
