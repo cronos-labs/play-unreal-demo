@@ -1,21 +1,31 @@
 UNAME := $(shell uname)
-PLAYUNREALPLUGIN=v0.0.7-ue4-alpha
-PLUGIN_FILE=CronosPlayForUnrealEngine.zip
-PLUGIN_CHECKSUM_FILE=checksums.txt
+PWD := $(shell pwd)
 
-PLUGIN_SRC=https://github.com/cronos-labs/play-unreal-plugin/releases/download/$(PLAYUNREALPLUGIN)/$(PLUGIN_FILE)
-PLUGIN_CHEKSUM_SRC=https://github.com/cronos-labs/play-unreal-plugin/releases/download/$(PLAYUNREALPLUGIN)/$(PLUGIN_CHECKSUM_FILE)
+.PHONY: build
 
+all: build
 
-all: android_key_gen download
-
-android_key_gen:
+build:
 ifeq ($(UNAME), Darwin)
-	./android_key_gen.sh
+	/Users/Shared/Epic\ Games/UE_4.27/Engine/Build/BatchFiles/RunUAT.sh  \
+		BuildCookRun \
+		-utf8output \
+		-platform=Mac \
+		-clientconfig=Development \
+		-serverconfig=Development \
+		-project=$(PWD)/CronosPlayUnrealDemo.uproject \
+		-noP4 -nodebuginfo -allmaps -nocompileeditor \
+		-cook -build -stage -prereqs -pak -archive \
+		-archivedirectory=$(PWD)/archive
+else ifeq ($(UNAME), Linux)
+	/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh \
+	BuildCookRun \
+	-utf8output \
+	-platform=Linux \
+	-clientconfig=Development \
+	-serverconfig=Development \
+	-project=$(PWD)/CronosPlayUnrealDemo.uproject \
+	-noP4 -nodebuginfo -allmaps \
+	-cook -build -stage -prereqs -pak -archive \
+	-archivedirectory=$(PWD)/archive
 endif
-
-download:
-	mkdir -p ./Plugins/play-unreal-plugin
-	cd ./Plugins/play-unreal-plugin && curl -s -O -L $(PLUGIN_SRC)
-	cd ./Plugins/play-unreal-plugin && curl -s -L $(PLUGIN_CHEKSUM_SRC) | shasum -a 256 -c -
-	cd ./Plugins/play-unreal-plugin && unzip -o $(PLUGIN_FILE)

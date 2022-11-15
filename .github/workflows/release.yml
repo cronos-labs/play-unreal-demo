@@ -1,4 +1,4 @@
-name: Release
+name: Release for simple Demo
 
 on:
   push:
@@ -13,46 +13,34 @@ on:
       - README.md
 
 jobs:
-  linux-build:
+  CronosPlaySimpleDemo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive
+      - uses: actions/checkout@v3
 
-      - name: Prepare Plugin
-        working-directory: simple
-        run: make
+      - name: Setup
+        run: |
+          mkdir -p simple/Plugins
+          cd simple/Plugins
+          git clone --branch 4.27 https://github.com/cronos-labs/play-unreal-plugin.git
+          cd play-unreal-plugin
+          make
 
       - name: Package
         run: |
-          FILENAME="CronosPlayDemo.zip"
+          FILENAME="CronosPlaySimpleDemo.zip"
           zip -r ${FILENAME} simple -x "simple/.git/*" "simple/.git/*" "simple/Plugins/play-unreal-plugin/.git/*"  "simple/Plugins/play-unreal-plugin/.github/*" "simple/Plugins/play-unreal-plugin/install/*"
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
-          echo "demo_file=${FILENAME}" >> $GITHUB_ENV
+          echo "demo_project_file=${FILENAME}" >> $GITHUB_ENV
           echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
 
-      - name: Asset Pack
-        run: |
-          FILENAME="CronosPlayAssetPack.zip"
-          cd simple/Content/CronosPlayUnreal/Blueprint
-          zip -r ${FILENAME} *
-          mv ${FILENAME} ../../../..
-          cd ../../../..
-          sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
-          echo "asset_pack_file=${FILENAME}" >> $GITHUB_ENV
-          echo "asset_pack_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
-
-      - name: Upload binaries and bindings to Release
+      - name: Upload demo project and checksum file to Release
         uses: softprops/action-gh-release@v1
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
-            ${{ env.demo_file }}
+            ${{ env.demo_project_file }}
             ${{ env.demo_checksum_file }}
-            ${{ env.asset_pack_file }}
-            ${{ env.asset_pack_checksum_file }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

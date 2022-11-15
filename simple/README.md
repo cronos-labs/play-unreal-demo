@@ -6,6 +6,7 @@ For more information, please see the [Cronos Play Unreal SDK plugin repository](
 - Windows: Visual Studo 2019 or later
 - Mac: XCODE 13.2.1
 - Android: NDK 21.4.7075529
+- IOS: Minimum IOS 14
 - Unreal Engine: 4.27
 - Plugin: Cronos Play For Unreal Engine
 
@@ -18,6 +19,10 @@ If you prefer configuring the project manually:
 1. Under the project root and run `make` to setup `CronosPlayUnreal` plugin
 2. open `CronosPlayUnrealDemo.uproject`
 3. For android, you need to setup the key for signing, please check [here](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Mobile/Android/DistributionSigning/).
+4. For ios, please
+   - Specify a valid Provision and a valid Certificate in Project Settings > Platforms > iOS > Mobile Provision
+   - DISABLE `Support bitcode in shipping` in Project Settings > Platforms > iOS > Build
+   - Setup distribution type based on the iOS profile in Project Settings > Packaging > Project > For Distribution
 
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this [Contact Form](https://airtable.com/shrFiQnLrcpeBp2lS) for more information.
