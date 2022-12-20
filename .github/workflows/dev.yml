@@ -46,7 +46,8 @@ jobs:
     - name: Package
       run: |
         FILENAME="CronosPlaySimpleDemoLinuxNoEditor.zip"
-        cd archive/LinuxNoEditor/ && zip -r ../../${FILENAME} .
+        cd simple/archive/LinuxNoEditor/ && zip -r ../../../${FILENAME} .
+        cd ../../..
         sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
         echo "demo_binary_file=${FILENAME}" >> $GITHUB_ENV
         echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
