@@ -35,13 +35,17 @@ If you prefer configuring the project manually:
      - Location of JAVA: /Applications/Android Studio.app/Contents/jre/Contents/Home
      - SDK API Level: latest
      - NDK API Level: android-21
-   - Run `make android`
+   - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
+   - `cd Plugins/play-unreal-plugin/ && make`
+   - `make android`
 
 4. For ios, please
    - Specify a valid Provision and a valid Certificate in Project Settings > Platforms > iOS > Mobile Provision
    - DISABLE `Support bitcode in shipping` in Project Settings > Platforms > iOS > Build
    - Setup distribution type based on the iOS profile in Project Settings > Packaging > Project > For Distribution
-   - Run `make ios`
+   - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
+   - `cd Plugins/play-unreal-plugin/ && make`
+   - `make ios`
 
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this
