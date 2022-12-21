@@ -31,11 +31,6 @@
 				"Win64",
 				"Linux"
 			]
-		},
-		{
-			"Name": "CronosPlayUnreal",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/4488d810074049ac988e755a3d9dc0c4"
 		}
 	]
 }

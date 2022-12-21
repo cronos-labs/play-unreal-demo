@@ -1,0 +1,64 @@
+name: Unreal 4.27 Development Build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+    tags:
+      - "v*.*.*"
+  pull_request:
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /usr/local/lib/android
+        mkdir -p simple/Plugins
+        cd simple/Plugins
+        git clone --branch 4.27 https://github.com/cronos-labs/play-unreal-plugin.git
+        cd play-unreal-plugin
+        make
+        sudo chmod 777 -R $GITHUB_WORKSPACE
+
+    - uses: addnab/docker-run-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.PAT }}
+        image: ghcr.io/epicgames/unreal-engine:dev-slim-4.27.2
+        options: -v ${{ github.workspace }}:/home/ue4/play-unreal-demo -e HOME=/home/ue4
+        run: |
+          cd ~/play-unreal-demo/simple
+          make
+
+    - name: Package
+      run: |
+        FILENAME="CronosPlaySimpleDemoLinuxNoEditor.zip"
+        cd simple/archive/LinuxNoEditor/ && zip -r ../../../${FILENAME} .
+        cd ../../..
+        sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
+        echo "demo_binary_file=${FILENAME}" >> $GITHUB_ENV
+        echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
+
+    - name: Upload binary file and checksum file to Release
+      uses: softprops/action-gh-release@v1
+      if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+      with:
+        draft: true
+        files: |
+          ${{ env.demo_binary_file }}
+          ${{ env.demo_checksum_file }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
