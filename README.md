@@ -4,7 +4,7 @@ For more information, please see the [Cronos Play Unreal SDK plugin repository](
 
 ## Demo Projects
 ### [simple](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple)
-This project includes demo [Blueprints](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/CronosPlayUnreal/Blueprint), [Tutorials](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/Tutorial/), and [Projects Settings](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Config) for building Mac/Windows/Linux/Android/iOS games on Cronos.
+This project includes [Tutorials](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/Tutorials) and [Projects Settings](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Config) for building Mac/Windows/Linux/Android/iOS games on Cronos.
 
 #### Pre-requisites
 - Windows: Visual Studo 2019 or later
