@@ -37,7 +37,7 @@ If you prefer configuring the project manually:
      - NDK API Level: android-21
    - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
    - `cd Plugins/play-unreal-plugin/ && make`
-   - `make android`
+   - `cd ../../ && make android`
 
 4. For ios, please
    - Specify a valid Provision and a valid Certificate in Project Settings > Platforms > iOS > Mobile Provision
@@ -45,7 +45,7 @@ If you prefer configuring the project manually:
    - Setup distribution type based on the iOS profile in Project Settings > Packaging > Project > For Distribution
    - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
    - `cd Plugins/play-unreal-plugin/ && make`
-   - `make ios`
+   - `cd ../../ && make ios`
 
 ### More information for Cronos Play
 If you are a game developer, please visit [Cronos Play](https://cronos.org/play) or fill this
