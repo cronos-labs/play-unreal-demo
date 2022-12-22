@@ -4,15 +4,15 @@ For more information, please see the [Cronos Play Unreal SDK plugin repository](
 
 ## Demo Projects
 ### [simple](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple)
-This project includes demo [Blueprints](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/CronosPlayUnreal/Blueprint), [Tutorials](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/Tutorial/), and [Projects Settings](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Config) for building Mac/Windows/Linux/Android/iOS games on Cronos.
+This project includes [Tutorials](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/Tutorials) and [Projects Settings](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Config) for building Mac/Windows/Linux/Android/iOS games on Cronos.
 
 #### Pre-requisites
+- Unreal Engine: 4.27
 - Windows: Visual Studo 2019 or later
 - Mac: XCODE 13.2.1
 - Android: NDK 21.4.7075529
-- Unreal Engine: 4.27
 - IOS: Minimum IOS 14
-- Plugin: Cronos Play For Unreal Engine in Epic Marketplace
+- Plugin: Cronos Play For Unreal Engine, `4.27` branch of [play-unreal-plugin](https://github.com/cronos-labs/play-unreal-plugin/issues/new) repository
 
 #### Features
 - Restore Wallet by Mnemonics, and generate address with Wallet APIs
