@@ -17,9 +17,21 @@ Download the release zip file in [Release](https://github.com/cronos-labs/play-u
 
 ## Setup Manually
 If you prefer configuring the project manually:
-1. Under the project root and run `make` to setup `CronosPlayUnreal` plugin
-2. open `CronosPlayUnrealDemo.uproject`
-3. For android, please
+1. For windows,
+   - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
+   - `cd Plugins/play-unreal-plugin/`
+   - `install-play-cpp-sdk.bat`
+   - `cd ../../`
+   - `windows-build.bat`
+
+2. For mac or Linux,
+   - `git clone https://github.com/cronos-labs/play-unreal-plugin.git Plugins/play-unreal-plugin/`
+   - `cd Plugins/play-unreal-plugin`
+   - `make`
+   - `cd ../../`
+   - `make`
+
+3. For android,
    - Install Android Studio, and download android sdk and ndk
      - Customize > All Settings > Appearance & Behavior > System Settings > Android SDK > SDK
        Tools
@@ -39,7 +51,7 @@ If you prefer configuring the project manually:
    - `cd Plugins/play-unreal-plugin/ && make`
    - `cd ../../ && make android`
 
-4. For ios, please
+4. For ios,
    - Specify a valid Provision and a valid Certificate in Project Settings > Platforms > iOS > Mobile Provision
    - DISABLE `Support bitcode in shipping` in Project Settings > Platforms > iOS > Build
    - Setup distribution type based on the iOS profile in Project Settings > Packaging > Project > For Distribution
