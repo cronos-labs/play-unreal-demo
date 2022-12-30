@@ -75,6 +75,7 @@ If you prefer configuring the project manually,
 ```
 
 ### iOS
+Build iOS on Mac:
 1. Specify a valid Provision and a valid Certificate in Project Settings > Platforms > iOS > Mobile Provision
 2. DISABLE `Support bitcode in shipping` in Project Settings > Platforms > iOS > Build
 3. Setup distribution type based on the iOS profile in Project Settings > Packaging > Project > For Distribution
