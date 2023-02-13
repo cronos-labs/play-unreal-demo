@@ -44,3 +44,35 @@ jobs:
             ${{ env.demo_checksum_file }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  CronosPlayMetaverseDemo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup
+        run: |
+          mkdir -p Metaverse/Plugins
+          cd Metaverse/Plugins
+          git clone --branch main https://github.com/cronos-labs/play-unreal-plugin.git
+          cd play-unreal-plugin
+          make
+
+      - name: Package
+        run: |
+          FILENAME="CronosPlayMetaverseDemo.zip"
+          zip -r ${FILENAME} Metaverse -x "Metaverse/.git/*" "Metaverse/.git/*" "Metaverse/Plugins/play-unreal-plugin/.git/*"  "Metaverse/Plugins/play-unreal-plugin/.github/*" "Metaverse/Plugins/play-unreal-plugin/install/*"
+          sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
+          echo "demo_project_file=${FILENAME}" >> $GITHUB_ENV
+          echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
+
+      - name: Upload demo project and checksum file to Release
+        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: |
+            ${{ env.demo_project_file }}
+            ${{ env.demo_checksum_file }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

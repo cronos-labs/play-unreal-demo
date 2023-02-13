@@ -4,10 +4,13 @@ using UnrealBuildTool;
 
 public class Metaverse : ModuleRules
 {
+
 	public Metaverse(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "EnhancedInput", "CronosPlayUnreal", "PlayCppSdkLibrary", "Text3D" });
+		PublicIncludePaths.AddRange(new string[] {"CronosPlayUnreal/Public"});
+
 	}
 }

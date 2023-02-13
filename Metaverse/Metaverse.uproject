@@ -7,7 +7,10 @@
 		{
 			"Name": "Metaverse",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
 		}
 	],
 	"Plugins": [
@@ -19,9 +22,8 @@
 			]
 		},
 		{
-			"Name": "CronosPlayUnreal",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/4488d810074049ac988e755a3d9dc0c4"
+			"Name": "Text3D",
+			"Enabled": true
 		}
 	]
 }
