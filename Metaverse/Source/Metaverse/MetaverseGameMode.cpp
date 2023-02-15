@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2022, Cronos Labs. All Rights Reserved
 
 #include "MetaverseGameMode.h"
 #include "MetaverseCharacter.h"

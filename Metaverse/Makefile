@@ -70,3 +70,20 @@ ifeq ($(UNAME), Darwin)
 		-cook -build -stage -prereqs -pak -package -archive \
 		-archivedirectory=$(PWD)/archive
 endif
+
+cmake:
+ifeq ($(UNAME), Darwin)
+	/Users/Shared/Epic\ Games/UE_5.1/Engine/Build/BatchFiles/Mac/GenerateProjectFiles.sh \
+    -project=$(PWD)/Metaverse.uproject -game -CMakefile
+else ifeq ($(UNAME), Linux)
+	/home/ue4/UnrealEngine/Engine/Build/BatchFiles/Linux/GenerateProjectFiles.sh \
+    -project=$(PWD)/Metaverse.uproject -game -CMakefile
+endif
+
+compile_commands: cmake
+	mkdir -p build
+	cd Build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+
+clean:
+	rm CMakeLists.txt
+	rm -rf Build
