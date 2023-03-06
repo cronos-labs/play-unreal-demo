@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2022, Cronos Labs. All Rights Reserved
 
 #pragma once
 
@@ -14,6 +14,3 @@ class AMetaverseGameMode : public AGameModeBase
 public:
 	AMetaverseGameMode();
 };
-
-
-
