@@ -8,7 +8,8 @@
 #include "WalletConnectTriggerComponent.generated.h"
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FShowQR, UTexture2D *, Texture);
-DECLARE_DYNAMIC_DELEGATE_TwoParams(FHideQR, FString, Address, int64, ChainID);
+DECLARE_DYNAMIC_DELEGATE_TwoParams(FHideQRAndUpdateOverlay, FString, Address, int64, ChainID);
+DECLARE_DYNAMIC_DELEGATE(FHideQR);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
@@ -69,6 +70,11 @@ public:
   void Connect();
 
   UFUNCTION(BlueprintCallable,
+            meta = (DisplayName = "Disconnect", Keywords = "WalletConnect"),
+            Category = "WalletConnect")
+  void Disconnect();
+
+  UFUNCTION(BlueprintCallable,
             meta = (DisplayName = "SignPersonal", Keywords = "WalletConnect"),
             Category = "WalletConnect")
   void SignPersonal(FString message);
@@ -81,6 +87,8 @@ public:
 
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
   FShowQR OnShowQR;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
+  FHideQRAndUpdateOverlay OnHideQRAndUpdateOverlay;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
   FHideQR OnHideQR;
 

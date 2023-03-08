@@ -178,12 +178,13 @@ void AMetaverseCharacter::SetInitialBalance(FText account) {
     ADefiWalletCoreActor *DefiWalletCore =
         DefiWalletCoreComponent->GetDefiWalletCore();
     if (DefiWalletCore) {
-        UE_LOG(LogTemp, Log, TEXT("Get CRO Balance from: %s"), *account.ToString());
+        UE_LOG(LogTemp, Log, TEXT("Getting Balance from: %s..."), *account.ToString());
         FString balance;
         bool success;
         FString output_message;
         DefiWalletCore->GetEthBalance(account.ToString(), balance, success,
-                                      output_message);
+                                    output_message);
+        UE_LOG(LogTemp, Log, TEXT("Balance: %f"), FCString::Atof(*balance));
         if (success) {
             AttributeComponent->SetBalance(FCString::Atof(*balance)/1000000000000000000);    // update
             MetaverseOverlay->SetBalance(AttributeComponent->GetBalance()); // display

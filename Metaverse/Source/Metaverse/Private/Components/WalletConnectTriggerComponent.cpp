@@ -54,6 +54,7 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
       break;
     case EWalletconnectSessionState::StateUpdated:
       break;
+    case EWalletconnectSessionState::StateInit:
     case EWalletconnectSessionState::StateDisconnected: {
       PlayCppSdk->ConnectWalletConnect(description, url, icon_urls, name, chain_id,
                                           connection_type);
@@ -165,7 +166,7 @@ void UWalletConnectTriggerComponent::OnNewSessionReadyConnectFinished(
          TEXT("OnRestoreSession Account[0]: %s, Chain id: %d, Result: %s"),
          *address, chain_id, *Result);
   // Hide QR
-  this->OnHideQR.ExecuteIfBound(address, chain_id);
+  this->OnHideQRAndUpdateOverlay.ExecuteIfBound(address, chain_id);
 }
 
 //
@@ -241,7 +242,7 @@ void UWalletConnectTriggerComponent::OnNewSessionReadySignPersonalFinished(
          TEXT("OnNewSession Account[0]: %s, Chain id: %d, Result: %s"),
          *address, chain_id, *Result);
   // Hide QR
-  this->OnHideQR.ExecuteIfBound(address, chain_id);
+  this->OnHideQRAndUpdateOverlay.ExecuteIfBound(address, chain_id);
 
   // Sign Personal
   _PlayCppSdk->SignPersonal(_SignPersonalMessage,
@@ -322,9 +323,34 @@ void UWalletConnectTriggerComponent::OnNewSessionReadySignEip155TransactionFinis
          TEXT("OnNewSession Account[0]: %s, Chain id: %d, Result: %s"),
          *address, chain_id, *Result);
   // Hide QR
-  this->OnHideQR.ExecuteIfBound(address, chain_id);
+  this->OnHideQRAndUpdateOverlay.ExecuteIfBound(address, chain_id);
 
   // SignEip155Transaction
   _PlayCppSdk->SignEip155Transaction(
       _WalletConnectTxEip155, OnWalletconnectSignEip155TransactionDelegate);
+}
+
+
+//
+// Disconnect
+//
+void UWalletConnectTriggerComponent::Disconnect() {
+  _PlayCppSdk =
+      (APlayCppSdkActor *)UGameplayStatics::GetActorOfClass(
+          GetWorld(), APlayCppSdkActor::StaticClass());
+  if (!_PlayCppSdk) {
+    _PlayCppSdk =
+        (APlayCppSdkActor *)GetWorld()->SpawnActor(
+            APlayCppSdkActor::StaticClass());
+  }
+
+  bool success;
+  _PlayCppSdk->ClearSession(success);
+  if (success) {
+    // Hide QR if any
+    this->OnHideQR.ExecuteIfBound();
+  } else {
+    UE_LOG(LogTemp, Error, TEXT("Clear Session Failed. Please try to clear again."));
+  }
+
 }

@@ -46,11 +46,11 @@ void AHelp::ShowQR(UTexture2D * Texture) {
         UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
     MetaverseCharacter->ShowQR(Texture);
 
-    GetWalletConnectTriggerComponent()->OnHideQR.BindDynamic(
-        this, &AHelp::HideQR);
+    GetWalletConnectTriggerComponent()->OnHideQRAndUpdateOverlay.BindDynamic(
+        this, &AHelp::HideQRAndUpdateOverlay);
 }
 
-void AHelp::HideQR(FString Address, int64 ChainID) {
+void AHelp::HideQRAndUpdateOverlay(FString Address, int64 ChainID) {
     AMetaverseCharacter *MetaverseCharacter = Cast<AMetaverseCharacter>(
         UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
     MetaverseCharacter->SetAccount(
@@ -59,5 +59,11 @@ void AHelp::HideQR(FString Address, int64 ChainID) {
     MetaverseCharacter->SetInitialBalance(
         FText::FromString(FString::Printf(TEXT("0x%s"), *Address)));
 
+    MetaverseCharacter->HideQR();
+}
+
+void AHelp::HideQR() {
+    AMetaverseCharacter *MetaverseCharacter = Cast<AMetaverseCharacter>(
+        UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
     MetaverseCharacter->HideQR();
 }

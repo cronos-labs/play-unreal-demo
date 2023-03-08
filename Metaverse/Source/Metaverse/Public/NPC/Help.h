@@ -35,7 +35,9 @@ public:
 	UFUNCTION()
     void ShowQR(UTexture2D *Texture);
     UFUNCTION()
-    void HideQR(FString Address, int64 ChainID);
+    void HideQRAndUpdateOverlay(FString Address, int64 ChainID);
+    UFUNCTION()
+    void HideQR();
 
 protected:
     // Called when the game starts or when spawned
