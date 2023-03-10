@@ -153,11 +153,14 @@ void AMetaverseCharacter::InitializeMetaverseOverlay() {
         Cast<APlayerController>(GetController());
     AMetaverseHUD *MetaverseHUD =
         Cast<AMetaverseHUD>(PlayerController->GetHUD());
-    MetaverseOverlay = MetaverseHUD->GetMetaverseOverlay();
-    MetaverseOverlay->SetBalance(0);
-    MetaverseOverlay->SetCoin(0);
-    MetaverseOverlay->SetAccount(
-        FText::FromString(FString::Printf(TEXT("Please connect a WalletConnect-compatible wallet"))));
+    // if MetaverseHUD is valid
+    if (MetaverseHUD) {
+        MetaverseOverlay = MetaverseHUD->GetMetaverseOverlay();
+        MetaverseOverlay->SetBalance(0);
+        MetaverseOverlay->SetCoin(0);
+        MetaverseOverlay->SetAccount(
+            FText::FromString(FString::Printf(TEXT("Please connect a WalletConnect-compatible wallet"))));
+    }
 }
 
 void AMetaverseCharacter::AddCoin(float value) {
