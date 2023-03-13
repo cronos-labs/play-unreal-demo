@@ -4,7 +4,7 @@ information, please see the [Cronos Play Unreal SDK plugin
 repository](https://github.com/crypto-com/play-unreal-plugin).
 
 ## Pre-requisites
-- Windows: Visual Studo 2022
+- Windows: Visual Studio 2022
 - Mac: XCODE 14.2
 - Android: NDK 21.4.7075529
 - IOS: Minimum IOS 14
