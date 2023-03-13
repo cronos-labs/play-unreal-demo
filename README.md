@@ -3,6 +3,22 @@ This repository contains sample projects that uses the Cronos Play Unreal SDK pl
 For more information, please see the [Cronos Play Unreal SDK plugin repository](https://github.com/crypto-com/play-unreal-plugin).
 
 ## Demo Projects
+### [Metaverse](https://github.com/cronos-labs/play-unreal-demo/tree/main/Metaverse)
+This project builds a Metaverse demo where users can connect Wallets, sign transactions, interact with Smart Contracts, collect Coins and more!
+### Pre-requisites
+- Windows: Visual Studo 2022
+- Mac: XCODE 14.2
+- Android: NDK 21.4.7075529
+- IOS: Minimum IOS 14
+- Unreal Engine: 5.1
+- Plugin: Cronos Play For Unreal Engine
+#### Features
+- Connect wallet with WalletConnect, by QR code or deep link
+- Sign personal message and transaction with WalletConnect
+- Interacte with smart contracts
+- Collect coins and have fun
+- etc
+
 ### [simple](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple)
 This project includes [Tutorials](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Content/Tutorials) and [Projects Settings](https://github.com/cronos-labs/play-unreal-demo/tree/main/simple/Config) for building Mac/Windows/Linux/Android/iOS games on Cronos.
 
