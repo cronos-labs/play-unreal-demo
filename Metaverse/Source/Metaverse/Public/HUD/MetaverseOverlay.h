@@ -12,14 +12,14 @@ class UImage;
  *
  */
 UCLASS()
-class METAVERSE_API UMetaverseOverlay : public UUserWidget
-{
-	GENERATED_BODY()
-public:
+class METAVERSE_API UMetaverseOverlay : public UUserWidget {
+    GENERATED_BODY()
+  public:
     void SetCoin(float value);
     void SetBalance(float value);
     void SetAccount(FText account);
-private:
+
+  private:
     UPROPERTY(meta = (BindWidget))
     UTextBlock *CoinText;
     UPROPERTY(meta = (BindWidget))
@@ -32,5 +32,4 @@ private:
     UImage *WalletConnectImage;
     UPROPERTY(meta = (BindWidget))
     UImage *BalanceImage;
-
 };

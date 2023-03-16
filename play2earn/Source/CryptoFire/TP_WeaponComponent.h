@@ -11,42 +11,42 @@ class ACryptoFireCharacter;
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom),
        meta = (BlueprintSpawnableComponent))
 class CRYPTOFIRE_API UTP_WeaponComponent : public UActorComponent {
-  GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-  /** Projectile class to spawn */
-  UPROPERTY(EditDefaultsOnly, Category = Projectile)
-  TSubclassOf<class ACryptoFireProjectile> ProjectileClass;
+  public:
+    /** Projectile class to spawn */
+    UPROPERTY(EditDefaultsOnly, Category = Projectile)
+    TSubclassOf<class ACryptoFireProjectile> ProjectileClass;
 
-  /** Sound to play each time we fire */
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-  USoundBase *FireSound;
+    /** Sound to play each time we fire */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+    USoundBase *FireSound;
 
-  /** AnimMontage to play each time we fire */
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-  UAnimMontage *FireAnimation;
+    /** AnimMontage to play each time we fire */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+    UAnimMontage *FireAnimation;
 
-  /** Gun muzzle's offset from the characters location */
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-  FVector MuzzleOffset;
+    /** Gun muzzle's offset from the characters location */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+    FVector MuzzleOffset;
 
-  /** Sets default values for this component's properties */
-  UTP_WeaponComponent();
+    /** Sets default values for this component's properties */
+    UTP_WeaponComponent();
 
-  /** Attaches the actor to a FirstPersonCharacter */
-  UFUNCTION(BlueprintCallable, Category = "Weapon")
-  void AttachWeapon(ACryptoFireCharacter *TargetCharacter);
+    /** Attaches the actor to a FirstPersonCharacter */
+    UFUNCTION(BlueprintCallable, Category = "Weapon")
+    void AttachWeapon(ACryptoFireCharacter *TargetCharacter);
 
-  /** Make the weapon Fire a Projectile */
-  UFUNCTION(BlueprintCallable, Category = "Weapon")
-  void Fire();
+    /** Make the weapon Fire a Projectile */
+    UFUNCTION(BlueprintCallable, Category = "Weapon")
+    void Fire();
 
-protected:
-  /** Ends gameplay for this component. */
-  UFUNCTION()
-  virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+  protected:
+    /** Ends gameplay for this component. */
+    UFUNCTION()
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-private:
-  /** The Character holding this weapon*/
-  ACryptoFireCharacter *Character;
+  private:
+    /** The Character holding this weapon*/
+    ACryptoFireCharacter *Character;
 };

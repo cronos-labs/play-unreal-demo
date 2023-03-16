@@ -1,6 +1,5 @@
 // Copyright 2022, Cronos Labs. All Rights Reserved
 
-
 #include "NPC/ConnectWalletConnect.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/WalletConnectTriggerComponent.h"
@@ -21,15 +20,15 @@ void AConnectWalletConnect::OnConnectWalletConnectBeginOverlap(
         Cast<AMetaverseCharacter>(OtherActor);
     if (MetaverseCharacter->GetAccount().IsEmpty()) {
         MetaverseCharacter->SetAccount(
-        FText::FromString(FString::Printf(TEXT("Plase scan QR Code"))));
+            FText::FromString(FString::Printf(TEXT("Plase scan QR Code"))));
     } else {
         MetaverseCharacter->SetAccount(MetaverseCharacter->GetAccount());
     }
 
-    UWalletConnectTriggerComponent *WalletConnectTriggerComponent = GetWalletConnectTriggerComponent();
+    UWalletConnectTriggerComponent *WalletConnectTriggerComponent =
+        GetWalletConnectTriggerComponent();
 
     WalletConnectTriggerComponent->Connect();
 
-    WalletConnectTriggerComponent->OnShowQR.BindDynamic(
-        this, &Super::ShowQR);
+    WalletConnectTriggerComponent->OnShowQR.BindDynamic(this, &Super::ShowQR);
 }

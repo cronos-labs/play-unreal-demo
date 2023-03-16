@@ -7,10 +7,9 @@
 #include "MetaverseGameMode.generated.h"
 
 UCLASS(minimalapi)
-class AMetaverseGameMode : public AGameModeBase
-{
-	GENERATED_BODY()
+class AMetaverseGameMode : public AGameModeBase {
+    GENERATED_BODY()
 
-public:
-	AMetaverseGameMode();
+  public:
+    AMetaverseGameMode();
 };

@@ -1,6 +1,5 @@
 // Copyright 2022, Cronos Labs. All Rights Reserved
 
-
 #include "HUD/MetaverseOverlay.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"

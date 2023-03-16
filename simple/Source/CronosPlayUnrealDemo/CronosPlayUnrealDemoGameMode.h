@@ -7,8 +7,8 @@
 
 UCLASS(minimalapi)
 class ACronosPlayUnrealDemoGameMode : public AGameModeBase {
-  GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-  ACronosPlayUnrealDemoGameMode();
+  public:
+    ACronosPlayUnrealDemoGameMode();
 };

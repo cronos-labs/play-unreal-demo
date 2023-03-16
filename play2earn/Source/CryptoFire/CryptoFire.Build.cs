@@ -3,11 +3,11 @@
 using UnrealBuildTool;
 
 public class CryptoFire : ModuleRules {
-  public CryptoFire(ReadOnlyTargetRules Target) : base(Target) {
-    PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+    public CryptoFire(ReadOnlyTargetRules Target) : base(Target) {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-    PublicDependencyModuleNames.AddRange(
-        new string[] { "Core", "CoreUObject", "Engine", "InputCore",
-                       "HeadMountedDisplay", "Json" });
-  }
+        PublicDependencyModuleNames.AddRange(
+            new string[] { "Core", "CoreUObject", "Engine", "InputCore",
+                           "HeadMountedDisplay", "Json" });
+    }
 }

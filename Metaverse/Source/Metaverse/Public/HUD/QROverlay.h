@@ -14,7 +14,7 @@ UCLASS()
 class METAVERSE_API UQROverlay : public UUserWidget {
     GENERATED_BODY()
   public:
-    void ShowQR(UTexture2D * QRTexture);
+    void ShowQR(UTexture2D *QRTexture);
     void HideQR();
 
   private:

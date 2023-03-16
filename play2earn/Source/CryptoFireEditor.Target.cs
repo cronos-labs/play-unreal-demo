@@ -4,9 +4,9 @@ using UnrealBuildTool;
 using System.Collections.Generic;
 
 public class CryptoFireEditorTarget : TargetRules {
-  public CryptoFireEditorTarget(TargetInfo Target) : base(Target) {
-    Type = TargetType.Editor;
-    DefaultBuildSettings = BuildSettingsVersion.V2;
-    ExtraModuleNames.Add("CryptoFire");
-  }
+    public CryptoFireEditorTarget(TargetInfo Target) : base(Target) {
+        Type = TargetType.Editor;
+        DefaultBuildSettings = BuildSettingsVersion.V2;
+        ExtraModuleNames.Add("CryptoFire");
+    }
 }
