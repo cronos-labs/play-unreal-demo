@@ -15,6 +15,7 @@
 #include "Components/DefiWalletCoreComponent.h"
 #include "DefiWalletCoreActor.h"
 #include "Logging/LogVerbosity.h"
+#include "DynamicContractObject.h"
 
 // AMetaverseCharacter
 AMetaverseCharacter::AMetaverseCharacter() {
@@ -217,4 +218,14 @@ void AMetaverseCharacter::HideQR() {
     AMetaverseHUD *MetaverseHUD =
         Cast<AMetaverseHUD>(PlayerController->GetHUD());
     MetaverseHUD->HideQR();
+}
+
+UDynamicContractObject *
+AMetaverseCharacter::CreateDynamicContract(FString contractaddress,
+                                           FString abijson, bool &success,
+                                           FString &output_message) {
+    ADefiWalletCoreActor *DefiWalletCore =
+        DefiWalletCoreComponent->GetDefiWalletCore();
+    return DefiWalletCore->CreateDynamicContract(contractaddress, abijson,
+                                                 success, output_message);
 }

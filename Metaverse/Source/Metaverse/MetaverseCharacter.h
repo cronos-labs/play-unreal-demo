@@ -92,4 +92,13 @@ class AMetaverseCharacter : public ACharacter {
     void ShowQR(UTexture2D *QRTexture);
     void HideQR();
     void SetInitialBalance(FText account);
+
+    UFUNCTION(BlueprintCallable,
+              meta = (DisplayName = "CreateDynamicContract",
+                      Keywords = "Contract"),
+              Category = "MetaverseGame")
+    UDynamicContractObject *CreateDynamicContract(FString contractaddress,
+                                                  FString abijson,
+                                                  bool &success,
+                                                  FString &output_message);
 };
