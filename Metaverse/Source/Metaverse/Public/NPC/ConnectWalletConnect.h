@@ -13,7 +13,7 @@ UCLASS()
 class METAVERSE_API AConnectWalletConnect : public AHelp {
     GENERATED_BODY()
 
-protected:
+  protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 

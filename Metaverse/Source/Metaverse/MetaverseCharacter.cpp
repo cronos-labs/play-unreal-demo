@@ -65,8 +65,8 @@ AMetaverseCharacter::AMetaverseCharacter() {
     AttributeComponent =
         CreateDefaultSubobject<UAttributeComponent>(TEXT("Attribute"));
 
-    DefiWalletCoreComponent =
-        CreateDefaultSubobject<UDefiWalletCoreComponent>(TEXT("Defi Wallet Core"));
+    DefiWalletCoreComponent = CreateDefaultSubobject<UDefiWalletCoreComponent>(
+        TEXT("Defi Wallet Core"));
 
     // Note: The skeletal mesh and anim blueprint references on the Mesh
     // component (inherited from Character) are set in the derived blueprint
@@ -158,8 +158,8 @@ void AMetaverseCharacter::InitializeMetaverseOverlay() {
         MetaverseOverlay = MetaverseHUD->GetMetaverseOverlay();
         MetaverseOverlay->SetBalance(0);
         MetaverseOverlay->SetCoin(0);
-        MetaverseOverlay->SetAccount(
-            FText::FromString(FString::Printf(TEXT("Please connect a WalletConnect-compatible wallet"))));
+        MetaverseOverlay->SetAccount(FText::FromString(FString::Printf(
+            TEXT("Please connect a WalletConnect-compatible wallet"))));
     }
 }
 
@@ -181,18 +181,22 @@ void AMetaverseCharacter::SetInitialBalance(FText account) {
     ADefiWalletCoreActor *DefiWalletCore =
         DefiWalletCoreComponent->GetDefiWalletCore();
     if (DefiWalletCore) {
-        UE_LOG(LogTemp, Log, TEXT("Getting Balance from: %s..."), *account.ToString());
+        UE_LOG(LogTemp, Log, TEXT("Getting Balance from: %s..."),
+               *account.ToString());
         FString balance;
         bool success;
         FString output_message;
         DefiWalletCore->GetEthBalance(account.ToString(), balance, success,
-                                    output_message);
+                                      output_message);
         UE_LOG(LogTemp, Log, TEXT("Balance: %f"), FCString::Atof(*balance));
         if (success) {
-            AttributeComponent->SetBalance(FCString::Atof(*balance)/1000000000000000000);    // update
-            MetaverseOverlay->SetBalance(AttributeComponent->GetBalance()); // display
+            AttributeComponent->SetBalance(FCString::Atof(*balance) /
+                                           1000000000000000000); // update
+            MetaverseOverlay->SetBalance(
+                AttributeComponent->GetBalance()); // display
         } else {
-            UE_LOG(LogTemp, Error, TEXT("Can not get CRO balance, Error: %s"), *output_message);
+            UE_LOG(LogTemp, Error, TEXT("Can not get CRO balance, Error: %s"),
+                   *output_message);
         }
     } else {
         UE_LOG(LogTemp, Error, TEXT("Can not find Defi Wallet Core"));

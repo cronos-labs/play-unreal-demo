@@ -13,7 +13,7 @@ class UMetaverseOverlay;
 UCLASS()
 class METAVERSE_API AHelp : public AActor {
     GENERATED_BODY()
-private:
+  private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components",
               meta = (AllowPrivateAccess = "true"))
     UWalletConnectTriggerComponent *WalletConnectTrigger;
@@ -24,23 +24,24 @@ private:
               meta = (AllowPrivateAccess = "true"))
     UText3DComponent *Text3D;
 
-public:
+  public:
     // Sets default values for this actor's properties
     AHelp();
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
     FORCEINLINE UWalletConnectTriggerComponent *
-    GetWalletConnectTriggerComponent(){return WalletConnectTrigger;}
-	UFUNCTION()
+    GetWalletConnectTriggerComponent() {
+        return WalletConnectTrigger;
+    }
+    UFUNCTION()
     void ShowQR(UTexture2D *Texture);
     UFUNCTION()
     void HideQRAndUpdateOverlay(FString Address, int64 ChainID);
     UFUNCTION()
     void HideQR();
 
-protected:
+  protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
-
 };

@@ -10,11 +10,10 @@
  *
  */
 UCLASS()
-class METAVERSE_API ASignEthTransaction : public AHelp
-{
-	GENERATED_BODY()
+class METAVERSE_API ASignEthTransaction : public AHelp {
+    GENERATED_BODY()
 
-protected:
+  protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 

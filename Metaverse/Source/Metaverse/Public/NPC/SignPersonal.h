@@ -10,17 +10,17 @@
  *
  */
 UCLASS()
-class METAVERSE_API ASignPersonal : public AHelp
-{
-	GENERATED_BODY()
+class METAVERSE_API ASignPersonal : public AHelp {
+    GENERATED_BODY()
 
-protected:
+  protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
     UFUNCTION()
-    void OnSignPersonalBeginOverlap(
-        UPrimitiveComponent *OverlappedComponent, AActor *OtherActor,
-        UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep,
-        const FHitResult &SweepResult);
+    void OnSignPersonalBeginOverlap(UPrimitiveComponent *OverlappedComponent,
+                                    AActor *OtherActor,
+                                    UPrimitiveComponent *OtherComp,
+                                    int32 OtherBodyIndex, bool bFromSweep,
+                                    const FHitResult &SweepResult);
 };

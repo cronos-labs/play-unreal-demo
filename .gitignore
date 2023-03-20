@@ -72,3 +72,8 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+.vscode/*
+play2earn/mint/artifacts/*
+play2earn/mint/cache/*
+play2earn/mint/node_modules/*
+play2earn/mint/cache/solidity-files-cache.json

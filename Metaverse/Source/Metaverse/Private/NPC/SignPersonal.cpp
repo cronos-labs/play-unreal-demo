@@ -1,11 +1,9 @@
 // Copyright 2022, Cronos Labs. All Rights Reserved
 
-
 #include "NPC/SignPersonal.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/WalletConnectTriggerComponent.h"
 #include "../../MetaverseCharacter.h"
-
 
 // Called when the game starts or when spawned
 void ASignPersonal::BeginPlay() {
@@ -22,15 +20,15 @@ void ASignPersonal::OnSignPersonalBeginOverlap(
         Cast<AMetaverseCharacter>(OtherActor);
     if (MetaverseCharacter->GetAccount().IsEmpty()) {
         MetaverseCharacter->SetAccount(
-        FText::FromString(FString::Printf(TEXT("Plase scan QR Code"))));
+            FText::FromString(FString::Printf(TEXT("Plase scan QR Code"))));
     } else {
         MetaverseCharacter->SetAccount(MetaverseCharacter->GetAccount());
     }
 
-    UWalletConnectTriggerComponent *WalletConnectTriggerComponent = GetWalletConnectTriggerComponent();
+    UWalletConnectTriggerComponent *WalletConnectTriggerComponent =
+        GetWalletConnectTriggerComponent();
 
     WalletConnectTriggerComponent->SignPersonal(FString("HELLO WORLD"));
 
-    WalletConnectTriggerComponent->OnShowQR.BindDynamic(
-        this, &Super::ShowQR);
+    WalletConnectTriggerComponent->OnShowQR.BindDynamic(this, &Super::ShowQR);
 }
