@@ -1,5 +1,5 @@
 // Copyright 2022, Cronos Labs. All Rights Reserved
-
+// clang-format off
 #include "Components/WalletConnectTriggerComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Utlis.h"
@@ -353,3 +353,4 @@ void UWalletConnectTriggerComponent::Disconnect() {
                TEXT("Clear Session Failed. Please try to clear again."));
     }
 }
+// clang-format on
