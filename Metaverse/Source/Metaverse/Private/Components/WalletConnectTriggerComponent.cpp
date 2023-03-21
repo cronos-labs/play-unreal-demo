@@ -18,8 +18,7 @@ void UWalletConnectTriggerComponent::BeginPlay() {
         this,
         &UWalletConnectTriggerComponent::OnWalletconnectSignPersonalFinished);
     OnWalletconnectSignEip155TransactionDelegate.BindDynamic(
-        this, &UWalletConnectTriggerComponent::
-                  OnWalletconnectSignEip155TransactionFinished);
+        this, &UWalletConnectTriggerComponent::OnWalletconnectSignEip155TransactionFinished);
 }
 
 void UWalletConnectTriggerComponent::TickComponent(
@@ -121,8 +120,7 @@ void UWalletConnectTriggerComponent::Connect() {
     case EWalletconnectSessionState::StateDisconnected: {
 
         _PlayCppSdk->OnRestoreSessionReady.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnRestoreSessionReadyConnectFinished);
+            this, &UWalletConnectTriggerComponent::OnRestoreSessionReadyConnectFinished);
 
         _PlayCppSdk->OnNewSessionReady.BindDynamic(
             this,
@@ -132,8 +130,7 @@ void UWalletConnectTriggerComponent::Connect() {
             this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
 
         _PlayCppSdk->OnReceiveWalletconnectSessionInfoDelegate.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnReceiveWalletconnectSessionInfoDelegateFinished);
+            this, &UWalletConnectTriggerComponent::OnReceiveWalletconnectSessionInfoDelegateFinished);
 
         break;
     }
@@ -189,12 +186,10 @@ void UWalletConnectTriggerComponent::SignPersonal(FString message) {
     case EWalletconnectSessionState::StateDisconnected: {
 
         _PlayCppSdk->OnRestoreSessionReady.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnRestoreSessionReadySignPersonalFinished);
+            this, &UWalletConnectTriggerComponent::OnRestoreSessionReadySignPersonalFinished);
 
         _PlayCppSdk->OnNewSessionReady.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnNewSessionReadySignPersonalFinished);
+            this, &UWalletConnectTriggerComponent::OnNewSessionReadySignPersonalFinished);
 
         _PlayCppSdk->OnQRReady.BindDynamic(
             this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
@@ -271,12 +266,10 @@ void UWalletConnectTriggerComponent::SignEip155Transaction(
     case EWalletconnectSessionState::StateDisconnected: {
 
         _PlayCppSdk->OnRestoreSessionReady.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnRestoreSessionReadySignEip155TransactionFinished);
+            this, &UWalletConnectTriggerComponent::OnRestoreSessionReadySignEip155TransactionFinished);
 
         _PlayCppSdk->OnNewSessionReady.BindDynamic(
-            this, &UWalletConnectTriggerComponent::
-                      OnNewSessionReadySignEip155TransactionFinished);
+            this, &UWalletConnectTriggerComponent::OnNewSessionReadySignEip155TransactionFinished);
 
         _PlayCppSdk->OnQRReady.BindDynamic(
             this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
