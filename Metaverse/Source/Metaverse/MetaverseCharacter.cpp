@@ -192,7 +192,7 @@ void AMetaverseCharacter::SetInitialBalance(FText account) {
         UE_LOG(LogTemp, Log, TEXT("Balance: %f"), FCString::Atof(*balance));
         if (success) {
             AttributeComponent->SetBalance(FCString::Atof(*balance) /
-                                           1000000000000000000); // update
+                                           1000000000000000000.0); // update
             MetaverseOverlay->SetBalance(
                 AttributeComponent->GetBalance()); // display
         } else {

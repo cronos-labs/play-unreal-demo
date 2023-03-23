@@ -6,7 +6,7 @@ repository](https://github.com/crypto-com/play-unreal-plugin).
 ## Pre-requisites
 - Windows: Visual Studio 2022
 - Mac: XCODE 14.2
-- Android: NDK 21.4.7075529
+- Android: NDK 25.1.8937393
 - IOS: Minimum IOS 14
 - Unreal Engine: 5.1
 - Plugin: Cronos Play For Unreal Engine
