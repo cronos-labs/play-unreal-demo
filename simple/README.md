@@ -6,7 +6,7 @@ repository](https://github.com/crypto-com/play-unreal-plugin).
 ## Pre-requisites
 - Windows: Visual Studo 2019 or later
 - Mac: XCODE 13.2.1
-- Android: NDK 21.4.7075529
+- Android: NDK 23.0.7599858
 - IOS: Minimum IOS 14
 - Unreal Engine: 4.27
 - Plugin: Cronos Play For Unreal Engine
@@ -50,7 +50,7 @@ If you prefer configuring the project manually,
 - Project Settings > Platforms > Android SDK ($HOME: replace with the location of your HOME
     directory)
     - Location of Android SDK: $HOME/Library/Android/sdk
-    - Location of Android NDK: $HOME/Library/Android/sdk/ndk/21.4.7075529
+    - Location of Android NDK: $HOME/Library/Android/sdk/ndk/23.0.7599858
     - Location of JAVA: /Applications/Android Studio.app/Contents/jre/Contents/Home
     - SDK API Level: latest
     - NDK API Level: android-21

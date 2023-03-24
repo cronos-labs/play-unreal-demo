@@ -1,4 +1,4 @@
-name: Release for simple Demo
+name: Unreal Project Release
 
 on:
   push:
