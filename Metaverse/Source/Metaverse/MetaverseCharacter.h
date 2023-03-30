@@ -91,7 +91,7 @@ class AMetaverseCharacter : public ACharacter {
     void AddCoin(float value);
     void ShowQR(UTexture2D *QRTexture);
     void HideQR();
-    void SetInitialBalance(FText account);
+    void SetBalance(FText account);
 
     UFUNCTION(BlueprintCallable,
               meta = (DisplayName = "CreateDynamicContract",
