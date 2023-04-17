@@ -6,6 +6,8 @@
 #include "NPC/Help.h"
 #include "SignPersonal.generated.h"
 
+struct FWalletSignTXEip155Result;
+
 /**
  *
  */
@@ -23,4 +25,9 @@ class METAVERSE_API ASignPersonal : public AHelp {
                                     UPrimitiveComponent *OtherComp,
                                     int32 OtherBodyIndex, bool bFromSweep,
                                     const FHitResult &SweepResult);
+
+  private:
+    UFUNCTION()
+    void OnWalletconnectSignPersonalFinished(
+        FWalletSignTXEip155Result SigningResult);
 };

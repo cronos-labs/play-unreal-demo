@@ -178,7 +178,7 @@ void AMetaverseCharacter::SetAccount(FText account) {
     MetaverseOverlay->SetAccount(AttributeComponent->GetAccount()); // display
 }
 
-void AMetaverseCharacter::SetInitialBalance(FText account) {
+void AMetaverseCharacter::SetBalance(FText account) {
     ADefiWalletCoreActor *DefiWalletCore =
         DefiWalletCoreComponent->GetDefiWalletCore();
     if (DefiWalletCore) {

@@ -4,6 +4,8 @@
 #include "Components/PrimitiveComponent.h"
 #include "Components/WalletConnectTriggerComponent.h"
 #include "../../MetaverseCharacter.h"
+#include "PlayCppSdkActor.h"
+#include "Utlis.h"
 
 // Called when the game starts or when spawned
 void ASignPersonal::BeginPlay() {
@@ -28,7 +30,16 @@ void ASignPersonal::OnSignPersonalBeginOverlap(
     UWalletConnectTriggerComponent *WalletConnectTriggerComponent =
         GetWalletConnectTriggerComponent();
 
+    WalletConnectTriggerComponent->OnWalletconnectSignPersonalDelegate
+        .BindDynamic(this, &ASignPersonal::OnWalletconnectSignPersonalFinished);
+
     WalletConnectTriggerComponent->SignPersonal(FString("HELLO WORLD"));
 
     WalletConnectTriggerComponent->OnShowQR.BindDynamic(this, &Super::ShowQR);
+}
+
+void ASignPersonal::OnWalletconnectSignPersonalFinished(
+    FWalletSignTXEip155Result SigningResult) {
+    UE_LOG(LogTemp, Log, TEXT("Signing Signature: %s, Result: %s"),
+           *UUtlis::ToHex(SigningResult.signature), *SigningResult.result);
 }

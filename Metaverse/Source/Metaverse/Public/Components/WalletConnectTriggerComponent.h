@@ -22,17 +22,6 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
     FString _SignPersonalMessage;
     FWalletConnectTxEip155 _WalletConnectTxEip155;
 
-    FWalletconnectSignPersonalDelegate OnWalletconnectSignPersonalDelegate;
-    UFUNCTION()
-    void OnWalletconnectSignPersonalFinished(
-        FWalletSignTXEip155Result SigningResult);
-
-    FWalletconnectSignEip155TransactionDelegate
-        OnWalletconnectSignEip155TransactionDelegate;
-    UFUNCTION()
-    void OnWalletconnectSignEip155TransactionFinished(
-        FWalletSignTXEip155Result SigningResult);
-
     UFUNCTION()
     void OnRestoreSessionReadyConnectFinished(
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
@@ -46,6 +35,10 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
     UFUNCTION()
+    void OnRestoreSessionReadySendEip155TransactionFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result);
+
+    UFUNCTION()
     void OnNewSessionReadyConnectFinished(
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
@@ -55,6 +48,10 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
 
     UFUNCTION()
     void OnNewSessionReadySignEip155TransactionFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result);
+
+    UFUNCTION()
+    void OnNewSessionReadySendEip155TransactionFinished(
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
     UFUNCTION()
@@ -88,12 +85,24 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
               Category = "WalletConnect")
     void SignEip155Transaction(FWalletConnectTxEip155 info);
 
+    UFUNCTION(BlueprintCallable,
+              meta = (DisplayName = "SendEip155Transaction",
+                      Keywords = "WalletConnect"),
+              Category = "WalletConnect")
+    void SendEip155Transaction(FWalletConnectTxEip155 info);
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
     FShowQR OnShowQR;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
     FHideQRAndUpdateOverlay OnHideQRAndUpdateOverlay;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
     FHideQR OnHideQR;
+
+    FWalletconnectSignPersonalDelegate OnWalletconnectSignPersonalDelegate;
+    FWalletconnectSignEip155TransactionDelegate
+        OnWalletconnectSignEip155TransactionDelegate;
+    FWalletconnectSendEip155TransactionDelegate
+        OnWalletconnectSendEip155TransactionDelegate;
 
   protected:
     // Called when the game starts

@@ -46,7 +46,7 @@ void AHelp::HideQRAndUpdateOverlay(FString Address, int64 ChainID) {
     MetaverseCharacter->SetAccount(
         FText::FromString(FString::Printf(TEXT("0x%s"), *Address)));
 
-    MetaverseCharacter->SetInitialBalance(
+    MetaverseCharacter->SetBalance(
         FText::FromString(FString::Printf(TEXT("0x%s"), *Address)));
 
     MetaverseCharacter->HideQR();

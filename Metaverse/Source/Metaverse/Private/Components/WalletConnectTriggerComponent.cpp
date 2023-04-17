@@ -13,12 +13,6 @@ void UWalletConnectTriggerComponent::BeginPlay() {
     Super::BeginPlay();
 
     UE_LOG(LogTemp, Display, TEXT("WalletConnect Trigger Commponent Alive"));
-
-    OnWalletconnectSignPersonalDelegate.BindDynamic(
-        this,
-        &UWalletConnectTriggerComponent::OnWalletconnectSignPersonalFinished);
-    OnWalletconnectSignEip155TransactionDelegate.BindDynamic(
-        this, &UWalletConnectTriggerComponent::OnWalletconnectSignEip155TransactionFinished);
 }
 
 void UWalletConnectTriggerComponent::TickComponent(
@@ -39,7 +33,7 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
     FString url = "http://localhost:8080/";
     TArray<FString> icon_urls;
     FString name = "New Defi WalletConnect Web3 Example";
-    int64 chain_id = 25;
+    int64 chain_id = 338;
     EConnectionType connection_type = EConnectionType::QR_TEXTURE;
 
     if (PlayCppSdk) {
@@ -211,11 +205,6 @@ void UWalletConnectTriggerComponent::SignPersonal(FString message) {
     }
 }
 
-void UWalletConnectTriggerComponent::OnWalletconnectSignPersonalFinished(
-    FWalletSignTXEip155Result SigningResult) {
-    UE_LOG(LogTemp, Log, TEXT("Signing Signature: %s, Result: %s"),
-           *UUtlis::ToHex(SigningResult.signature), *SigningResult.result);
-}
 
 void UWalletConnectTriggerComponent::OnRestoreSessionReadySignPersonalFinished(
     FWalletConnectEnsureSessionResult SessionResult, FString Result) {
@@ -292,12 +281,6 @@ void UWalletConnectTriggerComponent::SignEip155Transaction(
     }
 }
 
-void UWalletConnectTriggerComponent::
-    OnWalletconnectSignEip155TransactionFinished(
-        FWalletSignTXEip155Result SigningResult) {
-    UE_LOG(LogTemp, Log, TEXT("Signing Signature: %s, Result: %s"),
-           *UUtlis::ToHex(SigningResult.signature), *SigningResult.result);
-}
 
 void UWalletConnectTriggerComponent::
     OnRestoreSessionReadySignEip155TransactionFinished(
@@ -331,6 +314,85 @@ void UWalletConnectTriggerComponent::
     _PlayCppSdk->SignEip155Transaction(
         _WalletConnectTxEip155, OnWalletconnectSignEip155TransactionDelegate);
 }
+
+//
+// SendEip155Transaction
+//
+void UWalletConnectTriggerComponent::SendEip155Transaction(
+    FWalletConnectTxEip155 info) {
+
+    _PlayCppSdk = this->Setup();
+    _WalletConnectTxEip155 = info; // set the interal value
+
+    UE_LOG(LogTemp, Display, TEXT("%s walletconnect status: %s"),
+           *_PlayCppSdk->GetActorNameOrLabel(),
+           *UEnum::GetValueAsString(
+               _PlayCppSdk->GetWalletConnectSessionInfo().sessionstate))
+    switch (_PlayCppSdk->GetWalletConnectSessionInfo().sessionstate) {
+    case EWalletconnectSessionState::StateInit:
+    case EWalletconnectSessionState::StateDisconnected: {
+
+        _PlayCppSdk->OnRestoreSessionReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnRestoreSessionReadySendEip155TransactionFinished);
+
+        _PlayCppSdk->OnNewSessionReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnNewSessionReadySendEip155TransactionFinished);
+
+        _PlayCppSdk->OnQRReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
+
+        break;
+    }
+    case EWalletconnectSessionState::StateConnecting:
+        break;
+    case EWalletconnectSessionState::StateConnected:
+    case EWalletconnectSessionState::StateRestored:
+    case EWalletconnectSessionState::StateUpdated: {
+
+        _PlayCppSdk->SendEip155Transaction(
+            info, OnWalletconnectSendEip155TransactionDelegate);
+
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void UWalletConnectTriggerComponent::
+    OnRestoreSessionReadySendEip155TransactionFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result) {
+    UE_LOG(LogTemp, Log,
+           TEXT("OnRestoreSession Account[0]: %s, Chain id: %d, Result: %s"),
+           SessionResult.addresses.Num() > 0
+               ? *UUtlis::ToHex(SessionResult.addresses[0].address)
+               : *FString("No Addresses"),
+           SessionResult.chain_id, *Result);
+
+    // Send Eip155
+    _PlayCppSdk->SendEip155Transaction(
+        _WalletConnectTxEip155, OnWalletconnectSendEip155TransactionDelegate);
+}
+
+void UWalletConnectTriggerComponent::
+    OnNewSessionReadySendEip155TransactionFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result) {
+    FString address = SessionResult.addresses.Num() > 0
+                          ? UUtlis::ToHex(SessionResult.addresses[0].address)
+                          : FString("No Addresses");
+    int64 chain_id = SessionResult.chain_id;
+    UE_LOG(LogTemp, Log,
+           TEXT("OnNewSession Account[0]: %s, Chain id: %d, Result: %s"),
+           *address, chain_id, *Result);
+    // Hide QR
+    this->OnHideQRAndUpdateOverlay.ExecuteIfBound(address, chain_id);
+
+    // SendEip155Transaction
+    _PlayCppSdk->SendEip155Transaction(
+        _WalletConnectTxEip155, OnWalletconnectSendEip155TransactionDelegate);
+}
+
+
 
 //
 // Disconnect
