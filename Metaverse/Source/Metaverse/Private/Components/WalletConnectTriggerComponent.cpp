@@ -415,4 +415,83 @@ void UWalletConnectTriggerComponent::Disconnect() {
                TEXT("Clear Session Failed. Please try to clear again."));
     }
 }
+
+//
+// Erc20Transfer
+//
+void UWalletConnectTriggerComponent::Erc20Transfer(
+    FString contractAddress, FString toAddress, FString amount,
+    FString gasLimit, FString gasPrice) {
+
+    _PlayCppSdk = this->Setup();
+    // set the interal values
+    _contractAddress = contractAddress;
+    _toAddress = toAddress;
+    _amount = amount;
+    _gasLimit = gasLimit;
+    _gasPrice = gasPrice;
+
+    UE_LOG(LogTemp, Display, TEXT("%s walletconnect status: %s"),
+           *_PlayCppSdk->GetActorNameOrLabel(),
+           *UEnum::GetValueAsString(
+               _PlayCppSdk->GetWalletConnectSessionInfo().sessionstate))
+    switch (_PlayCppSdk->GetWalletConnectSessionInfo().sessionstate) {
+    case EWalletconnectSessionState::StateInit:
+    case EWalletconnectSessionState::StateDisconnected: {
+
+        _PlayCppSdk->OnRestoreSessionReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnRestoreSessionErc20TransferFinished);
+
+        _PlayCppSdk->OnNewSessionReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnNewSessionReadyErc20TranferFinished);
+
+        _PlayCppSdk->OnQRReady.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
+
+        break;
+    }
+    case EWalletconnectSessionState::StateConnecting:
+        break;
+    case EWalletconnectSessionState::StateConnected:
+    case EWalletconnectSessionState::StateRestored:
+    case EWalletconnectSessionState::StateUpdated: {
+
+        _PlayCppSdk->Erc20Transfer(contractAddress, toAddress, amount, gasLimit, gasPrice, OnCronosSendContractTransactionDelegate);
+
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void UWalletConnectTriggerComponent::
+    OnRestoreSessionErc20TransferFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result) {
+    UE_LOG(LogTemp, Log,
+           TEXT("OnRestoreSession Account[0]: %s, Chain id: %d, Result: %s"),
+           SessionResult.addresses.Num() > 0
+               ? *UUtlis::ToHex(SessionResult.addresses[0].address)
+               : *FString("No Addresses"),
+           SessionResult.chain_id, *Result);
+
+        _PlayCppSdk->Erc20Transfer(_contractAddress, _toAddress, _amount, _gasLimit, _gasPrice, OnCronosSendContractTransactionDelegate);
+}
+
+void UWalletConnectTriggerComponent::
+    OnNewSessionReadyErc20TranferFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result) {
+    FString address = SessionResult.addresses.Num() > 0
+                          ? UUtlis::ToHex(SessionResult.addresses[0].address)
+                          : FString("No Addresses");
+    int64 chain_id = SessionResult.chain_id;
+    UE_LOG(LogTemp, Log,
+           TEXT("OnNewSession Account[0]: %s, Chain id: %d, Result: %s"),
+           *address, chain_id, *Result);
+    // Hide QR
+    this->OnHideQRAndUpdateOverlay.ExecuteIfBound(address, chain_id);
+
+        _PlayCppSdk->Erc20Transfer(_contractAddress, _toAddress, _amount, _gasLimit, _gasPrice, OnCronosSendContractTransactionDelegate);
+}
+
 // clang-format on

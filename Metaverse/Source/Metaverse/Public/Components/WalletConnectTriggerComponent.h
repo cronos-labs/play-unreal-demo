@@ -21,6 +21,11 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
     APlayCppSdkActor *Setup();
     FString _SignPersonalMessage;
     FWalletConnectTxEip155 _WalletConnectTxEip155;
+    FString _contractAddress;
+    FString _toAddress;
+    FString _amount;
+    FString _gasLimit;
+    FString _gasPrice;
 
     UFUNCTION()
     void OnRestoreSessionReadyConnectFinished(
@@ -39,6 +44,10 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
     UFUNCTION()
+    void OnRestoreSessionErc20TransferFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result);
+
+    UFUNCTION()
     void OnNewSessionReadyConnectFinished(
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
@@ -52,6 +61,10 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
 
     UFUNCTION()
     void OnNewSessionReadySendEip155TransactionFinished(
+        FWalletConnectEnsureSessionResult SessionResult, FString Result);
+
+    UFUNCTION()
+    void OnNewSessionReadyErc20TranferFinished(
         FWalletConnectEnsureSessionResult SessionResult, FString Result);
 
     UFUNCTION()
@@ -91,6 +104,13 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
               Category = "WalletConnect")
     void SendEip155Transaction(FWalletConnectTxEip155 info);
 
+    UFUNCTION(BlueprintCallable,
+              meta = (DisplayName = "Erc20Transfer",
+                      Keywords = "WalletConnect"),
+              Category = "WalletConnect")
+    void Erc20Transfer(FString contractAddress, FString toAddress,
+                       FString amount, FString gasLimit, FString gasPrice);
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
     FShowQR OnShowQR;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WalletConnect")
@@ -103,6 +123,9 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
         OnWalletconnectSignEip155TransactionDelegate;
     FWalletconnectSendEip155TransactionDelegate
         OnWalletconnectSendEip155TransactionDelegate;
+
+    FCronosSendContractTransactionDelegate
+        OnCronosSendContractTransactionDelegate;
 
   protected:
     // Called when the game starts
