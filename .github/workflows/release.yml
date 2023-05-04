@@ -18,12 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Checkout play-unreal-plugin repo and build it
+      - name: Checkout play-unreal-plugin repo
         uses: actions/checkout@v3
         with:
           repository: cronos-labs/play-unreal-plugin
           path: simple/Plugins/play-unreal-plugin
-        run: |
+
+      - name: Build play-unreal-plugin repo
+      - run: |
           cd simple/Plugins/play-unreal-plugin
           TARGET=4.27 make
           python change_version.py 4.27.0
@@ -52,11 +54,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Checkout play-unreal-plugin repo and build it
+      - name: Checkout play-unreal-plugin repo
         uses: actions/checkout@v3
         with:
           repository: cronos-labs/play-unreal-plugin
           path: Metaverse/Plugins/play-unreal-plugin
+
+      - name: Build play-unreal-plugin repo
         run: |
           cd Metaverse/Plugins/play-unreal-plugin
           TARGET=5.1 make

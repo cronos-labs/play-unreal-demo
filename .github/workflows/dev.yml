@@ -16,8 +16,10 @@ jobs:
   simple:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout play-uneral-demo and setup environment
+    - name: Checkout play-uneral-demo
       uses: actions/checkout@v3
+
+    - name: Setup environment
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
@@ -25,11 +27,13 @@ jobs:
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo rm -rf /usr/local/lib/android
 
-    - name: Checkout play-unreal-plugin repo and build it
+    - name: Checkout play-unreal-plugin repo
       uses: actions/checkout@v3
       with:
         repository: cronos-labs/play-unreal-plugin
         path: simple/Plugins/play-unreal-plugin
+
+    - name: Build play-unreal-plugin repo
       run: |
         cd simple/Plugins/play-unreal-plugin
         TARGET=4.27 make
@@ -70,20 +74,24 @@ jobs:
   Metaverse:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout play-uneral-demo and setup environment
+    - name: Checkout play-uneral-demo
       uses: actions/checkout@v3
-      run: |
+
+    - name: Setup environment
+    - run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo rm -rf /usr/local/lib/android
 
-    - name: Checkout play-unreal-plugin repo and build it
+    - name: Checkout play-unreal-plugin repo
       uses: actions/checkout@v3
       with:
         repository: cronos-labs/play-unreal-plugin
         path: Metaverse/Plugins/play-unreal-plugin
+
+    - name: Build play-unreal-plugin repo
       run: |
         cd Metaverse/Plugins/play-unreal-plugin
         TARGET=5.1 make
