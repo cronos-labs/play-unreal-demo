@@ -16,20 +16,24 @@ jobs:
   simple:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup
+    - name: Checkout play-uneral-demo and setup environment
+      uses: actions/checkout@v3
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo rm -rf /usr/local/lib/android
-        mkdir -p simple/Plugins
-        cd simple/Plugins
-        git clone --branch 4.27 https://github.com/cronos-labs/play-unreal-plugin.git
-        cd play-unreal-plugin
-        make
+
+    - name: Checkout play-unreal-plugin repo and build it
+      uses: actions/checkout@v3
+      with:
+        repository: cronos-labs/play-unreal-plugin
+        path: simple/Plugins/play-unreal-plugin
+      run: |
+        cd simple/Plugins/play-unreal-plugin
+        TARGET=4.27 make
+        python change_version.py 4.27.0
         sudo chmod 777 -R $GITHUB_WORKSPACE
 
     - uses: addnab/docker-run-action@v3
@@ -66,20 +70,24 @@ jobs:
   Metaverse:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup
+    - name: Checkout play-uneral-demo and setup environment
+      uses: actions/checkout@v3
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo rm -rf /usr/local/lib/android
-        mkdir -p Metaverse/Plugins
-        cd Metaverse/Plugins
-        git clone --branch main https://github.com/cronos-labs/play-unreal-plugin.git
-        cd play-unreal-plugin
-        make
+
+    - name: Checkout play-unreal-plugin repo and build it
+      uses: actions/checkout@v3
+      with:
+        repository: cronos-labs/play-unreal-plugin
+        path: Metaverse/Plugins/play-unreal-plugin
+      run: |
+        cd Metaverse/Plugins/play-unreal-plugin
+        TARGET=5.1 make
+        python change_version.py 5.1.0
         sudo chmod 777 -R $GITHUB_WORKSPACE
 
     - uses: addnab/docker-run-action@v3
