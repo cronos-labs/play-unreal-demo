@@ -25,7 +25,7 @@ jobs:
           path: simple/Plugins/play-unreal-plugin
 
       - name: Build play-unreal-plugin repo
-      - run: |
+        run: |
           cd simple/Plugins/play-unreal-plugin
           TARGET=4.27 make
           python change_version.py 4.27.0
