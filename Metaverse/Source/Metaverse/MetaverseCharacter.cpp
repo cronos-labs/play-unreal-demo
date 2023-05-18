@@ -16,6 +16,7 @@
 #include "DefiWalletCoreActor.h"
 #include "Logging/LogVerbosity.h"
 #include "DynamicContractObject.h"
+#include "Utlis.h"
 
 // AMetaverseCharacter
 AMetaverseCharacter::AMetaverseCharacter() {
@@ -228,4 +229,28 @@ AMetaverseCharacter::CreateDynamicContract(FString contractaddress,
         DefiWalletCoreComponent->GetDefiWalletCore();
     return DefiWalletCore->CreateDynamicContract(contractaddress, abijson,
                                                  success, output_message);
+}
+
+
+void AMetaverseCharacter::WaitForTransactionReceipt(TArray<uint8_t> tx_hash) {
+    ADefiWalletCoreActor *DefiWalletCore =
+        DefiWalletCoreComponent->GetDefiWalletCore();
+    if (DefiWalletCore) {
+        UE_LOG(LogTemp, Log, TEXT("Getting Transaction Receipt from: %s..."),
+               *UUtlis::ToHex(tx_hash));
+        DefiWalletCore->OnTransactionReceiptDelegate.BindDynamic(
+            this, &AMetaverseCharacter::OnTransactionReceipt);
+        // use the internal delegate
+        // TODO use the customized delegate
+        DefiWalletCore->WaitForTransactionReceipt(
+            tx_hash, DefiWalletCore->OnTransactionReceiptDelegate);
+    } else {
+        UE_LOG(LogTemp, Error, TEXT("Can not find Defi Wallet Core"));
+    }
+}
+
+void AMetaverseCharacter::OnTransactionReceipt(FString TxReceipt,
+                                               FString Result) {
+    UE_LOG(LogTemp, Log, TEXT("Transaction Receipt : %s, Result: %s"),
+           *TxReceipt, *Result);
 }

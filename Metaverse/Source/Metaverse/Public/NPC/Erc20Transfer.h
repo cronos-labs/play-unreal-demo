@@ -7,6 +7,7 @@
 #include "Erc20Transfer.generated.h"
 
 struct FWalletSendTXEip155Result;
+class AMetaverseCharacter;
 
 /**
  *
@@ -28,4 +29,5 @@ class METAVERSE_API AErc20Transfer : public AHelp {
   private:
 	UFUNCTION()
         void OnWalletconnectErc20TranferFinished(FWalletSendTXEip155Result TxResult);
+  AMetaverseCharacter *MetaverseCharacter;
 };

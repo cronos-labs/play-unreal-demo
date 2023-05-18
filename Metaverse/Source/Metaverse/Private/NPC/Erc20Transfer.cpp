@@ -18,8 +18,7 @@ void AErc20Transfer::OnErc20TransferBeginOverlap(
     UPrimitiveComponent *OverlappedComponent, AActor *OtherActor,
     UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep,
     const FHitResult &SweepResult) {
-    AMetaverseCharacter *MetaverseCharacter =
-        Cast<AMetaverseCharacter>(OtherActor);
+    MetaverseCharacter = Cast<AMetaverseCharacter>(OtherActor);
     if (MetaverseCharacter->GetAccount().IsEmpty()) {
         MetaverseCharacter->SetAccount(
             FText::FromString(FString::Printf(TEXT("Plase scan QR Code"))));
@@ -45,4 +44,10 @@ void AErc20Transfer::OnWalletconnectErc20TranferFinished(
     FWalletSendTXEip155Result TxResult) {
     UE_LOG(LogTemp, Log, TEXT("Transaction Hash: %s, Result: %s"),
            *UUtlis::ToHex(TxResult.tx_hash), *TxResult.result);
+    // Update new balance
+    // TODO Check transaction receipt before querying the balance
+    if (MetaverseCharacter) {
+        MetaverseCharacter->WaitForTransactionReceipt(TxResult.tx_hash);
+        //TODO check receipt valid or not
+    }
 }

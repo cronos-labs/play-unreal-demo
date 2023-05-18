@@ -50,6 +50,8 @@ void ASendEthTransaction::OnWalletconnectSendEip155TransactionFinished(
     // Update new balance
     // TODO Check transaction receipt before querying the balance
     if (MetaverseCharacter) {
+        MetaverseCharacter->WaitForTransactionReceipt(SendResult.tx_hash);
+        // TODO check receipt valid or not
         MetaverseCharacter->SetBalance(MetaverseCharacter->GetAccount());
     }
 }

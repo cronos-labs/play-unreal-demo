@@ -101,4 +101,7 @@ class AMetaverseCharacter : public ACharacter {
                                                   FString abijson,
                                                   bool &success,
                                                   FString &output_message);
+
+    void WaitForTransactionReceipt(TArray<uint8_t> tx_hash);
+    void OnTransactionReceipt(FString TxReceipt, FString Result);
 };
