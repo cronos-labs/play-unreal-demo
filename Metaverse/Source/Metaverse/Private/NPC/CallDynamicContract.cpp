@@ -37,7 +37,7 @@ void ACallDynamicContract::OnCallDynamicContractBeginOverlap(
                     TEXT("CreateDynamicContract success: %s, output_message: "
                          "%s"),
                     success ? TEXT("true") : TEXT("false"), *output_message);
-                GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, ouput);
+                GEngine->AddOnScreenDebugMessage(-1, 60.f, FColor::Blue, ouput);
             }
         }
 
@@ -55,6 +55,6 @@ void ACallDynamicContract::OnCallDynamicContract(FString JsonResult,
         FString ouput = FString::Printf(
             TEXT("OnCallDynamicContract JsonResult: %s, Result: %s"),
             *JsonResult, *Result);
-        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, ouput);
+        GEngine->AddOnScreenDebugMessage(-1, 60.f, FColor::Red, ouput);
     }
 }

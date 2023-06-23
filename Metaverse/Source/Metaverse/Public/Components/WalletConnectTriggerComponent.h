@@ -15,7 +15,7 @@ DECLARE_DYNAMIC_DELEGATE(FHideQR);
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
     GENERATED_BODY()
-  private:
+  public:
     APlayCppSdkActor *_PlayCppSdk;
 
     APlayCppSdkActor *Setup();
@@ -71,8 +71,7 @@ class METAVERSE_API UWalletConnectTriggerComponent : public USphereComponent {
     void OnQRReadyFinished(UTexture2D *Texture);
 
     UFUNCTION()
-    void OnReceiveWalletconnectSessionInfoDelegateFinished(
-        FWalletConnectSessionInfo SessionInfo);
+    void OnReceiveWalletconnectPolling(FString jsonevent, FString result);
 
   public:
     UWalletConnectTriggerComponent();
