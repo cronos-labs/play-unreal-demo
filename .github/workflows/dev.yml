@@ -25,7 +25,7 @@ jobs:
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /usr/local/lib/android        
 
     - name: Checkout play-unreal-plugin repo
       uses: actions/checkout@v3
@@ -36,6 +36,7 @@ jobs:
     - name: Build play-unreal-plugin repo
       run: |
         cd simple/Plugins/play-unreal-plugin
+        mv ./Source/ThirdParty/PlayCppSdkLibrary/PlayCppSdkLibrary.Build.cs.legacy ./Source/ThirdParty/PlayCppSdkLibrary/PlayCppSdkLibrary.Build.cs
         TARGET=4.27 make
         python change_version.py 4.27.0
         sudo chmod 777 -R $GITHUB_WORKSPACE
@@ -94,8 +95,9 @@ jobs:
     - name: Build play-unreal-plugin repo
       run: |
         cd Metaverse/Plugins/play-unreal-plugin
-        TARGET=5.1 make
-        python change_version.py 5.1.0
+        mv ./Source/ThirdParty/PlayCppSdkLibrary/PlayCppSdkLibrary.Build.cs.legacy ./Source/ThirdParty/PlayCppSdkLibrary/PlayCppSdkLibrary.Build.cs
+        TARGET=5.2 make
+        python change_version.py 5.2.0
         sudo chmod 777 -R $GITHUB_WORKSPACE
 
     - uses: addnab/docker-run-action@v3
@@ -103,7 +105,7 @@ jobs:
         registry: ghcr.io
         username: ${{ secrets.USER }}
         password: ${{ secrets.PAT }}
-        image: ghcr.io/epicgames/unreal-engine:dev-slim-5.1
+        image: ghcr.io/epicgames/unreal-engine:dev-slim-5.2
         options: -v ${{ github.workspace }}:/home/ue4/play-unreal-demo -e HOME=/home/ue4
         run: |
           cd ~/play-unreal-demo/Metaverse
