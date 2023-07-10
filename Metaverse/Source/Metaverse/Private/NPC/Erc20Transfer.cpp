@@ -36,7 +36,8 @@ void AErc20Transfer::OnErc20TransferBeginOverlap(
 
     WalletConnectTriggerComponent->Erc20Transfer(
         "0xC213a7B37F4f7eC81f78895E50EA773aA8E78255",
-        "0xA914161b1b8d9dbC9c5310Fc7EBee5A5B18044b7", "1000000000000000000", "", "");
+        "0xA914161b1b8d9dbC9c5310Fc7EBee5A5B18044b7", "1000000000000000000", "",
+        "");
 
     WalletConnectTriggerComponent->OnShowQR.BindDynamic(this, &Super::ShowQR);
 }

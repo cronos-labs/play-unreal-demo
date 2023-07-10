@@ -14,6 +14,9 @@ UCLASS()
 class METAVERSE_API ACallDynamicContract : public AHelp {
     GENERATED_BODY()
 
+  protected:
+    void Setup();
+
   public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Contract")
     UDynamicContractObject *UserDynamicContractObject;

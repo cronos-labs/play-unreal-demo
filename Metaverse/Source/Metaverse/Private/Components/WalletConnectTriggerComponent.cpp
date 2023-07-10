@@ -29,11 +29,28 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
         (APlayCppSdkActor *)UGameplayStatics::GetActorOfClass(
             GetWorld(), APlayCppSdkActor::StaticClass());
 
-    FString description = "Defi WalletConnect example.";
-    FString url = "http://localhost:8080/";
-    TArray<FString> icon_urls;
-    FString name = "New Defi WalletConnect Web3 Example";
-    int64 chain_id = 338;
+    
+    std::string userrelayserver="wss://relay.walletconnect.com";
+    std::string userprojectid="";
+    std::string userwalletnamespace =
+    "{\"eip155\":{\"methods\":[\"eth_sendTransaction\",\"eth_"
+    "signTransaction\",\"eth_sign\",\"personal_sign\",\"eth_"
+    "signTypedData\"],\"chains\":[\"eip155:5\"],\"events\":["
+    "\"chainChanged\",\"accountsChanged\"]}}";
+    std::string userclientmeta=
+    "{\"description\":\"Defi WalletConnect v2 "
+    "example.\",\"url\":\"http://localhost:8080/"
+    "\",\"icons\":[],\"name\":\"Defi WalletConnect Web3 Example\"}";
+
+    const char* projectId = std::getenv("NEXT_PUBLIC_PROJECT_ID");
+        if (projectId != nullptr) {
+            userprojectid = projectId;
+        }
+        // print projectid to unreal 
+        UE_LOG(LogTemp, Display, TEXT("NEXT_PUBLIC_PROJECT_ID: %s"),
+               UTF8_TO_TCHAR(userprojectid.c_str()));
+
+
     EConnectionType connection_type = EConnectionType::QR_TEXTURE;
 
     if (PlayCppSdk) {
@@ -50,8 +67,12 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
             break;
         case EWalletconnectSessionState::StateInit:
         case EWalletconnectSessionState::StateDisconnected: {
-            PlayCppSdk->ConnectWalletConnect(description, url, icon_urls, name,
-                                             chain_id, connection_type);
+            PlayCppSdk->ConnectWalletConnect(
+        UTF8_TO_TCHAR(userrelayserver.c_str()),
+        UTF8_TO_TCHAR(userprojectid.c_str()),
+        UTF8_TO_TCHAR(userwalletnamespace.c_str()),
+        UTF8_TO_TCHAR(userclientmeta.c_str()),
+        connection_type);
             break;
         }
         case EWalletconnectSessionState::StateRestored:
@@ -63,8 +84,17 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
         APlayCppSdkActor *NewPlayCppSdk =
             (APlayCppSdkActor *)GetWorld()->SpawnActor(
                 APlayCppSdkActor::StaticClass());
-        NewPlayCppSdk->ConnectWalletConnect(description, url, icon_urls, name,
-                                            chain_id, connection_type);
+
+        NewPlayCppSdk->OnReceiveWalletconnectPollingDelegate.BindDynamic(
+            this, &UWalletConnectTriggerComponent::OnReceiveWalletconnectPolling);
+
+        NewPlayCppSdk->PollingEventsEnabled=true;
+        NewPlayCppSdk->ConnectWalletConnect(  
+        UTF8_TO_TCHAR(userrelayserver.c_str()),
+        UTF8_TO_TCHAR(userprojectid.c_str()),
+        UTF8_TO_TCHAR(userwalletnamespace.c_str()),
+        UTF8_TO_TCHAR(userclientmeta.c_str()),
+        connection_type);
         UE_LOG(LogTemp, Display, TEXT("%s was created"),
                *NewPlayCppSdk->GetActorNameOrLabel());
         return NewPlayCppSdk;
@@ -77,26 +107,18 @@ void UWalletConnectTriggerComponent::OnQRReadyFinished(UTexture2D *Texture) {
     this->OnShowQR.ExecuteIfBound(Texture);
 }
 
-void UWalletConnectTriggerComponent::
-    OnReceiveWalletconnectSessionInfoDelegateFinished(
-        FWalletConnectSessionInfo SessionInfo) {
-    // Monitor the walletconnect events
-    UE_LOG(LogTemp, Display, TEXT("Got %s event: %s"),
-           *_PlayCppSdk->GetActorNameOrLabel(),
-           *UEnum::GetValueAsString(SessionInfo.sessionstate))
-    switch (SessionInfo.sessionstate) {
-    case EWalletconnectSessionState::StateConnecting:
-        break;
-    case EWalletconnectSessionState::StateConnected:
-        break;
-    case EWalletconnectSessionState::StateUpdated:
-        break;
-    case EWalletconnectSessionState::StateDisconnected:
-        break;
-    default:
-        break;
+
+void UWalletConnectTriggerComponent::OnReceiveWalletconnectPolling(FString jsonevent,
+                                                     FString result) {
+
+    // if result is empty, print log
+    if (result.IsEmpty()) {
+        UE_LOG(LogTemp, Log, TEXT("App ReceiveEvent= %s"), *jsonevent);
     }
+
+    _PlayCppSdk->BeginPolling(_PlayCppSdk->OnReceiveWalletconnectPollingDelegate);
 }
+
 
 //
 // Connect
@@ -123,9 +145,7 @@ void UWalletConnectTriggerComponent::Connect() {
         _PlayCppSdk->OnQRReady.BindDynamic(
             this, &UWalletConnectTriggerComponent::OnQRReadyFinished);
 
-        _PlayCppSdk->OnReceiveWalletconnectSessionInfoDelegate.BindDynamic(
-            this, &UWalletConnectTriggerComponent::OnReceiveWalletconnectSessionInfoDelegateFinished);
-
+        
         break;
     }
     case EWalletconnectSessionState::StateConnecting:

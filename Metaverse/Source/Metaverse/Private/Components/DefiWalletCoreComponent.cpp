@@ -33,7 +33,7 @@ void UDefiWalletCoreComponent::Setup() {
         // NewDefiWalletCore->myCronosChainID = 25;
         // NewDefiWalletCore->myCronosRpc = "https://evm-dev.cronos.org/";
         NewDefiWalletCore->myCronosChainID = 338;
-        NewDefiWalletCore->myCronosRpc = "https://evm-t3.cronos.org";
+        NewDefiWalletCore->myCronosRpc = "https://evm-dev-t3.cronos.org";
         UE_LOG(LogTemp, Display, TEXT("%s was created"),
                *NewDefiWalletCore->GetActorNameOrLabel());
         _DefiWalletCore = NewDefiWalletCore;
