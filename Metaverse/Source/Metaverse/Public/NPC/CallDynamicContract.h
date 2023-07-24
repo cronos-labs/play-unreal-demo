@@ -16,6 +16,7 @@ class METAVERSE_API ACallDynamicContract : public AHelp {
 
   protected:
     void Setup();
+    void SetupForSwap();
 
   public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Contract")
