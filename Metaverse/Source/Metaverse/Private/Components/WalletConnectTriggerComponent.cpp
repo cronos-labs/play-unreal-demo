@@ -35,7 +35,7 @@ APlayCppSdkActor *UWalletConnectTriggerComponent::Setup() {
     std::string userwalletnamespace =
     "{\"eip155\":{\"methods\":[\"eth_sendTransaction\",\"eth_"
     "signTransaction\",\"eth_sign\",\"personal_sign\",\"eth_"
-    "signTypedData\"],\"chains\":[\"eip155:5\"],\"events\":["
+    "signTypedData\"],\"chains\":[\"eip155:338\"],\"events\":["
     "\"chainChanged\",\"accountsChanged\"]}}";
     std::string userclientmeta=
     "{\"description\":\"Defi WalletConnect v2 "
