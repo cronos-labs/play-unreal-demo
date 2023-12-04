@@ -38,6 +38,6 @@ void UDefiWalletCoreComponent::Setup() {
                *NewDefiWalletCore->GetActorNameOrLabel());
         _DefiWalletCore = NewDefiWalletCore;
         return;
-    }
+    } 
     _DefiWalletCore = DefiWalletCore;
 }

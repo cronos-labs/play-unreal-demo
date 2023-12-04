@@ -29,15 +29,16 @@ void ASendEthTransaction::OnSendEthTransactionBeginOverlap(
 
     UWalletConnectTriggerComponent *WalletConnectTriggerComponent =
         GetWalletConnectTriggerComponent();
-
+ 
     WalletConnectTriggerComponent->OnWalletconnectSendEip155TransactionDelegate
         .BindDynamic(
             this,
             &ASendEthTransaction::OnWalletconnectSendEip155TransactionFinished);
 
     FWalletConnectTxEip155 tx;
-    tx.to = FString("0xA914161b1b8d9dbC9c5310Fc7EBee5A5B18044b7");
-    tx.value = FString("1000000000000000000");
+    tx.from = FString(std::getenv("MY_FROM_ADDRESS"));
+    tx.to = FString(std::getenv("MY_TO_ADDRESS"));
+    tx.value = FString("10000"); // wei
     WalletConnectTriggerComponent->SendEip155Transaction(tx);
 
     WalletConnectTriggerComponent->OnShowQR.BindDynamic(this, &Super::ShowQR);
