@@ -32,6 +32,7 @@ jobs:
       with:
         repository: cronos-labs/play-unreal-plugin
         path: simple/Plugins/play-unreal-plugin
+        ref: main
 
     - name: Build play-unreal-plugin repo
       run: |
@@ -91,6 +92,7 @@ jobs:
       with:
         repository: cronos-labs/play-unreal-plugin
         path: Metaverse/Plugins/play-unreal-plugin
+        ref: main
 
     - name: Build play-unreal-plugin repo
       run: |
