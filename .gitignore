@@ -82,3 +82,5 @@ play2earn/mint/artifacts/*
 play2earn/mint/cache/*
 play2earn/mint/node_modules/*
 play2earn/mint/cache/solidity-files-cache.json
+walletconnect/.vsconfig
+*.bat
