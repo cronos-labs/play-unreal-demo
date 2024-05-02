@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout play-uneral-demo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup environment
       run: |
@@ -28,7 +28,7 @@ jobs:
         sudo rm -rf /usr/local/lib/android        
 
     - name: Checkout play-unreal-plugin repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: cronos-labs/play-unreal-plugin
         path: simple/Plugins/play-unreal-plugin

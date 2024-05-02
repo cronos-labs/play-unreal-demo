@@ -16,10 +16,10 @@ jobs:
   CronosPlaySimpleDemo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Checkout play-unreal-plugin repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: cronos-labs/play-unreal-plugin
           path: simple/Plugins/play-unreal-plugin
@@ -52,10 +52,10 @@ jobs:
   CronosPlayMetaverseDemo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Checkout play-unreal-plugin repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: cronos-labs/play-unreal-plugin
           path: Metaverse/Plugins/play-unreal-plugin
@@ -70,6 +70,42 @@ jobs:
         run: |
           FILENAME="CronosPlayMetaverseDemo.zip"
           zip -r ${FILENAME} Metaverse -x "Metaverse/.git/*" "Metaverse/.git/*" "Metaverse/Plugins/play-unreal-plugin/.git/*"  "Metaverse/Plugins/play-unreal-plugin/.github/*" "Metaverse/Plugins/play-unreal-plugin/install/*"
+          sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
+          echo "demo_project_file=${FILENAME}" >> $GITHUB_ENV
+          echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
+
+      - name: Upload demo project and checksum file to Release
+        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: |
+            ${{ env.demo_project_file }}
+            ${{ env.demo_checksum_file }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  CronosPlayWalletConnectDemo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout play-unreal-plugin repo
+        uses: actions/checkout@v4
+        with:
+          repository: cronos-labs/play-unreal-plugin
+          path: walletconnect/Plugins/play-unreal-plugin
+
+      - name: Build play-unreal-plugin repo
+        run: |
+          cd walletconnect/Plugins/play-unreal-plugin
+          TARGET=5.4 make
+          python change_version.py 5.4.0
+
+      - name: Package
+        run: |
+          FILENAME="CronosPlayWalletConnectDemo.zip"
+          zip -r ${FILENAME} walletconnect -x "walletconnect/.git/*" "walletconnect/.git/*" "walletconnect/Plugins/play-unreal-plugin/.git/*"  "walletconnect/Plugins/play-unreal-plugin/.github/*" "walletconnect/Plugins/play-unreal-plugin/install/*"
           sha256sum ${FILENAME} > "checksums-${FILENAME}.txt"
           echo "demo_project_file=${FILENAME}" >> $GITHUB_ENV
           echo "demo_checksum_file=checksums-${FILENAME}.txt" >> $GITHUB_ENV
